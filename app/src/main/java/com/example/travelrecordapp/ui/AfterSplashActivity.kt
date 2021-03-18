@@ -3,16 +3,11 @@ package com.example.travelrecordapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import com.example.travelrecordapp.AfterSplashViewModel
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
-import com.example.travelrecordapp.login.LoginActivity
-import com.example.travelrecordapp.login.LoginViewModel
+import com.example.travelrecordapp.ui.login.LoginActivity
 import com.example.travelrecordapp.ui.register.RegisterActivity
 
 class AfterSplashActivity : AppCompatActivity() {

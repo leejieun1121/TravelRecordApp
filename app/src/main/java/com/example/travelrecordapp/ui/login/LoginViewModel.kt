@@ -1,9 +1,9 @@
-package com.example.travelrecordapp.login
+package com.example.travelrecordapp.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.travelrecordapp.Event
+import com.example.travelrecordapp.data.Event
 
 class LoginViewModel : ViewModel() {
 

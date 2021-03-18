@@ -1,4 +1,4 @@
-package com.example.travelrecordapp
+package com.example.travelrecordapp.data
 
 import androidx.lifecycle.Observer
 

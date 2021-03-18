@@ -1,14 +1,12 @@
-package com.example.travelrecordapp.login
+package com.example.travelrecordapp.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import com.example.travelrecordapp.AfterSplashViewModel
 import com.example.travelrecordapp.MainActivity
 import com.example.travelrecordapp.R
-import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
 import com.example.travelrecordapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

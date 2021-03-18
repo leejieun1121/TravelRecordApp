@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.travelrecordapp.AfterSplashViewModel" />
+            type="com.example.travelrecordapp.ui.AfterSplashViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

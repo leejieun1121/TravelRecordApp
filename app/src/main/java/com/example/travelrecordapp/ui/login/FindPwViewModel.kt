@@ -1,4 +1,4 @@
-package com.example.travelrecordapp.login
+package com.example.travelrecordapp.ui.login
 
 import androidx.lifecycle.ViewModel
 

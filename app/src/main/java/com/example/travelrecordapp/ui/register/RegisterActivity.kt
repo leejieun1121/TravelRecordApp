@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import com.example.travelrecordapp.AfterSplashViewModel
 import com.example.travelrecordapp.R
-import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
 import com.example.travelrecordapp.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {

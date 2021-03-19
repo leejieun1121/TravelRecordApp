@@ -3,7 +3,9 @@ package com.example.travelrecordapp.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.travelrecordapp.R
 import com.example.travelrecordapp.data.Event
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 
 class AfterSplashViewModel : ViewModel() {
@@ -23,4 +25,6 @@ class AfterSplashViewModel : ViewModel() {
     fun openRegisterActivity(){
         _registerActivityEvent.value = Event(Unit)
     }
+
+
 }

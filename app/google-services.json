@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "101337149065",
+    "project_id": "travelrecordapp-efa20",
+    "storage_bucket": "travelrecordapp-efa20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101337149065:android:28dddf1ecd594c86ada058",
+        "android_client_info": {
+          "package_name": "com.example.travelrecordapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101337149065-n2jugaip4dt36g1j01dtrvu9mip62vlf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelrecordapp",
+            "certificate_hash": "d650be7c449347963ef81f2be4ee39d501223578"
+          }
+        },
+        {
+          "client_id": "101337149065-7vjm7s18e2hrt59hdnipjcsqo11lap03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCliE3EVCfzhfj6Zx_FEVW70KnzpBJ1hr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101337149065-7vjm7s18e2hrt59hdnipjcsqo11lap03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -57,7 +57,7 @@ class AfterSplashActivity : AppCompatActivity() {
                 val intent = Intent(this@AfterSplashActivity, LoginActivity::class.java)
                 startActivity(intent)
             }
-            //회원가입 버튼 
+            //회원가입 버튼
             registerActivityEvent.observe(this@AfterSplashActivity){
                 val intent = Intent(this@AfterSplashActivity, RegisterActivity::class.java)
                 startActivity(intent)

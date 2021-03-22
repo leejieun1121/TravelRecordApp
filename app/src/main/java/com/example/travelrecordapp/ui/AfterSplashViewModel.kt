@@ -1,5 +1,6 @@
 package com.example.travelrecordapp.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class AfterSplashViewModel() : ViewModel() {
 
-    val authRepository = AuthRepository()
+    private val authRepository = AuthRepository()
     private val _loginActivityEvent = MutableLiveData<Event<Unit>>()
     val loginActivityEvent : LiveData<Event<Unit>>
     get() = _loginActivityEvent
@@ -22,8 +23,8 @@ class AfterSplashViewModel() : ViewModel() {
     val registerActivityEvent : LiveData<Event<Unit>>
         get() = _registerActivityEvent
 
+    //Facebook, Google 로그인 방법마다 user변수를 다르게 둬야할까?
     var authenticatedUser: LiveData<FirebaseUser>? = null
-
 
     fun openLoginActivity(){
         _loginActivityEvent.value = Event(Unit)
@@ -33,8 +34,9 @@ class AfterSplashViewModel() : ViewModel() {
         _registerActivityEvent.value = Event(Unit)
     }
 
-    fun signInWithGoogle(googleAuthCredential: AuthCredential){
-        authenticatedUser = authRepository.firebaseSignInWithGoogle(googleAuthCredential)
-
+    fun signInWithFirebase(credential: AuthCredential){
+        authenticatedUser = authRepository.signInWithFirebase(credential)
     }
+
+
 }

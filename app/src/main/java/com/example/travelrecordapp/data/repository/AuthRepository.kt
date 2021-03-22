@@ -1,6 +1,7 @@
 package com.example.travelrecordapp.data.repository
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -12,11 +13,11 @@ class AuthRepository(
         )
 {
 
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private val user = MutableLiveData<FirebaseUser>()
 
-    fun firebaseSignInWithGoogle(googleAuthCredential : AuthCredential) : MutableLiveData<FirebaseUser>{
-        val user = MutableLiveData<FirebaseUser>()
-        auth.signInWithCredential(googleAuthCredential)
+    fun signInWithFirebase(credential : AuthCredential) : MutableLiveData<FirebaseUser>{
+        auth.signInWithCredential(credential)
                 .addOnCompleteListener {
                     task ->
                     if (task.isSuccessful) {
@@ -33,6 +34,6 @@ class AuthRepository(
                     // ...
                 }
         return user
-
     }
+
 }

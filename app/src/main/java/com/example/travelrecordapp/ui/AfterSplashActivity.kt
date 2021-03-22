@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.example.travelrecordapp.MainActivity
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
 import com.example.travelrecordapp.ui.login.LoginActivity
@@ -28,6 +31,7 @@ class AfterSplashActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 10
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //스플래시테마 -> 다시 원래대로
         setTheme(R.style.Theme_TravelRecordApp)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_after_splash)
@@ -54,7 +58,6 @@ class AfterSplashActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-
         }
 
         binding.btnGoogleLogin.setOnClickListener {
@@ -72,6 +75,7 @@ class AfterSplashActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
+                    //구글 계정이 있다면 그 계정의 토큰으로 로그인 시도
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d("tag", "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
@@ -85,20 +89,19 @@ class AfterSplashActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("tag", "signInWithCredential:success")
-                    val user = auth.currentUser
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("tag", "signInWithCredential:failure", task.exception)
-                    // ...
-                }
 
-                // ...
+        viewModel.signInWithGoogle(credential)
+        viewModel.authenticatedUser?.observe(this){
+            if(it != null){
+                //null아니라면 파이어베이스 로그인 된것
+                val intent = Intent(this@AfterSplashActivity,MainActivity::class.java)
+                startActivity(intent)
+                //TODO 유저정보 넘기기, 지금은 FirebaseUser 로 되어있는데 이걸 어떻게 가공할까 ?
+            }else{
+                Toast.makeText(this,"로그인이 불가능합니다.",Toast.LENGTH_SHORT).show()
             }
+        }
+
     }
 
 }

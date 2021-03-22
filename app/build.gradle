@@ -70,8 +70,24 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     //google 로그인
-    implementation platform('com.google.firebase:firebase-bom:26.3.0')
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
-  }
+    //NetworkResponse
+//    implementation "com.github.haroldadmin:NetworkResponseAdapter:(4.1.0)"
+
+    //Retrofit 라이브러리 : https://github.com/square/retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit-mock:2.6.2'
+    //객체 시리얼라이즈를 위한 Gson 라이브러리: https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+    //Retrofit에서 Gson을 사용하기 위한 라이브러리
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5"
+
+
+
+}

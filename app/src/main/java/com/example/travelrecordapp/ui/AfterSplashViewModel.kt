@@ -1,15 +1,12 @@
 package com.example.travelrecordapp.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.travelrecordapp.data.Event
-import com.example.travelrecordapp.data.User
 import com.example.travelrecordapp.data.repository.AuthRepository
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 
 
 class AfterSplashViewModel() : ViewModel() {

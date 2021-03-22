@@ -10,7 +10,15 @@ class RegisterViewModel : ViewModel() {
     val registerOkEvent : LiveData<Event<Unit>>
     get() = _registerOkEvent
 
+    private val _finishEvent = MutableLiveData<Event<Unit>>()
+    val finishEvent : LiveData<Event<Unit>>
+        get() = _finishEvent
+
     fun registerOk(){
         _registerOkEvent.value = Event(Unit)
+    }
+
+    fun finishActivity(){
+        _finishEvent.value = Event(Unit)
     }
 }

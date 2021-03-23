@@ -17,6 +17,11 @@ class FindIdPwActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        viewModel.apply {
+            finishEvent.observe(this@FindIdPwActivity){
+                finish()
+            }
+        }
 
     }
 }

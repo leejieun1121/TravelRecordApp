@@ -28,6 +28,9 @@ class RegisterActivity : AppCompatActivity() {
 
         //TODO DataSource로 넘기기
         viewModel.apply {
+            finishEvent.observe(this@RegisterActivity){
+                finish()
+            }
             registerOkEvent.observe(this@RegisterActivity) {
                 val user = RequestRegister("test@naver.com", "1234", "N", "testtoken", "nick")
                 RetrofitService.service.register(user).enqueue(object : Callback<ResponseRegister>{
@@ -35,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                         call: Call<ResponseRegister>,
                         response: Response<ResponseRegister>
                     ) {
-                       Log.d("tagRegister",response.body()!!.message)
+//                       Log.d("tagRegister",response.body()!!.message)
                     }
 
                     override fun onFailure(call: Call<ResponseRegister>, t: Throwable) {

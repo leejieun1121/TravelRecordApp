@@ -42,15 +42,15 @@ class LoginActivity : AppCompatActivity() {
                         call: Call<ResponseLogin>,
                         response: Response<ResponseLogin>
                     ) {
-                        Log.d("tagLogin",response.body()!!.data.token)
+//                        Log.d("tagLogin",response.body()!!.data.token)
                     }
 
                     override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
                         Log.d("tagLogin",t.localizedMessage)
                     }
                 })
-//                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
             }
         }
 

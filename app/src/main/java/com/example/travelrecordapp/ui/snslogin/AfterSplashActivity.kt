@@ -1,13 +1,12 @@
-package com.example.travelrecordapp.ui
+package com.example.travelrecordapp.ui.snslogin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.example.travelrecordapp.MainActivity
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
@@ -22,11 +21,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.ktx.Firebase
+import com.kakao.auth.AuthType
+import com.kakao.auth.ISessionCallback
+import com.kakao.auth.Session
+import com.kakao.usermgmt.UserManagement
+import com.kakao.usermgmt.callback.LogoutResponseCallback
+import com.kakao.util.exception.KakaoException
+
 
 class AfterSplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAfterSplashBinding
@@ -50,6 +53,32 @@ class AfterSplashActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         doFacebookLogin()
+        Session.getCurrentSession().addCallback(sessionCallback)
+        val session = Session.getCurrentSession()
+
+
+        binding.btnKakaoLogin.setOnClickListener {
+            Toast.makeText(this@AfterSplashActivity, "카카오 로그인 버튼 클릭!", Toast.LENGTH_SHORT).show()
+
+            Session.getCurrentSession().addCallback(SessionCallback())
+            Session.getCurrentSession().checkAndImplicitOpen()
+            session.open(AuthType.KAKAO_LOGIN_ALL, this@AfterSplashActivity)
+        }
+        binding.btnKakaoLogout.setOnClickListener {
+            UserManagement.getInstance().requestLogout(object : LogoutResponseCallback() {
+                override fun onCompleteLogout() {
+                    Toast.makeText(this@AfterSplashActivity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
+        //구글 로그인 버튼 클릭
+        binding.btnGoogleLogin.setOnClickListener {
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+
+
 
         viewModel.apply {
             //로그인 버튼
@@ -64,13 +93,6 @@ class AfterSplashActivity : AppCompatActivity() {
             }
             //여기서 authenticatedUser 값이 변할때는 왜 관찰 못하고 함수 안에서만 반응할까
         }
-
-        //구글 로그인 버튼 클릭
-        binding.btnGoogleLogin.setOnClickListener {
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
-
     }
 
 
@@ -93,6 +115,11 @@ class AfterSplashActivity : AppCompatActivity() {
                 // ...
             }
         }
+
+        if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data)
+            return
+        }
     }
 
     //데이터바인딩, 라이프사이클, 뷰모델 셋팅
@@ -112,11 +139,11 @@ class AfterSplashActivity : AppCompatActivity() {
         viewModel.authenticatedUser?.observe(this@AfterSplashActivity){
             if(it != null){
                 //null아니라면 파이어베이스 로그인 된것
-                val intent = Intent(this@AfterSplashActivity,MainActivity::class.java)
+                val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 //TODO 유저정보 넘기기, 지금은 FirebaseUser 로 되어있는데 이걸 어떻게 가공할까 ?
             }else{
-                Toast.makeText(this@AfterSplashActivity,"로그인이 불가능합니다.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AfterSplashActivity, "로그인이 불가능합니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -151,16 +178,34 @@ class AfterSplashActivity : AppCompatActivity() {
         viewModel.signInWithFirebase(credential)
         viewModel.authenticatedUser?.observe(this@AfterSplashActivity){
             if(it != null){
-                val intent = Intent(this@AfterSplashActivity,MainActivity::class.java)
+                val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 //TODO 유저정보 넘기기, 지금은 FirebaseUser 로 되어있는데 이걸 어떻게 가공할까 ?
             }else{
-                Toast.makeText(this@AfterSplashActivity,"로그인이 불가능합니다.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AfterSplashActivity, "로그인이 불가능합니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    // 세션 콜백 구현
+    private val sessionCallback: ISessionCallback = object : ISessionCallback {
+        override fun onSessionOpened() {
+            Log.i("tag", "로그인 성공")
+            val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
+        override fun onSessionOpenFailed(exception: KakaoException) {
+            Log.e("tag", "로그인 실패", exception)
+        }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        // 세션 콜백 삭제
+        Session.getCurrentSession().removeCallback(sessionCallback)
+    }
 
 }
+

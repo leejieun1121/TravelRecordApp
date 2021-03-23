@@ -1,4 +1,4 @@
-package com.example.travelrecordapp.ui
+package com.example.travelrecordapp.ui.snslogin
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.travelrecordapp.ui.AfterSplashViewModel" />
+            type="com.example.travelrecordapp.ui.snslogin.AfterSplashViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main"
-    tools:context=".ui.AfterSplashActivity">
+    tools:context=".ui.snslogin.AfterSplashActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -75,7 +75,7 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_google_login"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -85,11 +85,29 @@
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_facebook_login"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_google_login"
         app:layout_constraintEnd_toEndOf="@+id/btn_register"
         app:layout_constraintStart_toEndOf="@+id/btn_google_login"
         app:layout_constraintTop_toTopOf="@+id/btn_google_login" />
+
+    <com.kakao.usermgmt.LoginButton
+        android:id="@+id/btn_kakao_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_facebook_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_google_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_google_login" />
+
+    <Button
+        android:id="@+id/btn_kakao_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="logout"
+        app:layout_constraintStart_toStartOf="@+id/btn_kakao_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_kakao_login" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

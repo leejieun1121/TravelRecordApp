@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="MyPlace"
             type="com.example.travelrecordapp.data.MyPlaceData" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@{MyPlace.name}"
-        android:layout_marginLeft="5dp"
-        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -29,22 +29,47 @@
         android:text="@{MyPlace.time}"
         android:textColor="@color/black"
         android:layout_marginLeft="20dp"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@+id/tv_name"
         app:layout_constraintTop_toTopOf="@+id/tv_name"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name"/>
 
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/img_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:riv_corner_radius="5dp"
-        imageUrl="@{MyPlace.imageUrl}"
-        android:background="@drawable/bg_round_border"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name">
+
+        <ImageView
+            android:id="@+id/img_place"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            imageUrl="@{MyPlace.imageUrl}"
+            />
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+    <!--    <com.makeramen.roundedimageview.RoundedImageView-->
+<!--        android:id="@+id/img_place"-->
+<!--        imageUrl="@{MyPlace.imageUrl}"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:background="@drawable/com_facebook_tooltip_black_background"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tv_name"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_name"-->
+<!--        app:riv_corner_radius="3dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

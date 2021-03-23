@@ -7,4 +7,8 @@
     <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
         <item name="colorControlActivated">@color/red</item>
     </style>
+
+    <style name="CustomSpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/ic_baseline_filter_list_24</item>
+    </style>
 </resources>

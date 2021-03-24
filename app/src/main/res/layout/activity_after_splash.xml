@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="146dp"
         android:background="@drawable/bg_round_border"
         android:text="로그인"
         android:onClick="@{()-> viewModel.openLoginActivity()}"
@@ -75,9 +75,9 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_google_login"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/btn_register"
         app:layout_constraintTop_toBottomOf="@+id/btn_register" />
@@ -85,29 +85,33 @@
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_facebook_login"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_google_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_google_login"
         app:layout_constraintEnd_toEndOf="@+id/btn_register"
         app:layout_constraintStart_toEndOf="@+id/btn_google_login"
-        app:layout_constraintTop_toTopOf="@+id/btn_google_login" />
+       />
 
     <com.kakao.usermgmt.LoginButton
         android:id="@+id/btn_kakao_login"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
+        android:onClick="@{()->viewModel.signInWithKakao()}"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_facebook_login"
-        app:layout_constraintStart_toStartOf="@+id/btn_google_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_google_login" />
+        app:layout_constraintStart_toStartOf="@+id/btn_facebook_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_facebook_login" />
 
     <Button
         android:id="@+id/btn_kakao_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="logout"
-        app:layout_constraintStart_toStartOf="@+id/btn_kakao_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_kakao_login" />
+        android:onClick="@{()->viewModel.signOutWithKakao()}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

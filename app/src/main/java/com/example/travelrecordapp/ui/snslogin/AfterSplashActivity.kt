@@ -53,24 +53,10 @@ class AfterSplashActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         doFacebookLogin()
+
+        //현재 세션에 콜백 붙여줌
+        //FIXME 카카오 클릭 리스너 내용 주석 처리 해도, 세션 콜백 붙여놓으면 자동로그인이 되는 이유
         Session.getCurrentSession().addCallback(sessionCallback)
-        val session = Session.getCurrentSession()
-
-
-        binding.btnKakaoLogin.setOnClickListener {
-            Toast.makeText(this@AfterSplashActivity, "카카오 로그인 버튼 클릭!", Toast.LENGTH_SHORT).show()
-
-            Session.getCurrentSession().addCallback(SessionCallback())
-            Session.getCurrentSession().checkAndImplicitOpen()
-            session.open(AuthType.KAKAO_LOGIN_ALL, this@AfterSplashActivity)
-        }
-        binding.btnKakaoLogout.setOnClickListener {
-            UserManagement.getInstance().requestLogout(object : LogoutResponseCallback() {
-                override fun onCompleteLogout() {
-                    Toast.makeText(this@AfterSplashActivity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
 
         //구글 로그인 버튼 클릭
         binding.btnGoogleLogin.setOnClickListener {
@@ -78,11 +64,10 @@ class AfterSplashActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-
-
         viewModel.apply {
             //로그인 버튼
             loginActivityEvent.observe(this@AfterSplashActivity){
+                Log.d("click","login")
                 val intent = Intent(this@AfterSplashActivity, LoginActivity::class.java)
                 startActivity(intent)
             }
@@ -92,6 +77,15 @@ class AfterSplashActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             //여기서 authenticatedUser 값이 변할때는 왜 관찰 못하고 함수 안에서만 반응할까
+
+            kakaoSession.observe(this@AfterSplashActivity){ kakaoSession ->
+                kakaoSession.checkAndImplicitOpen()
+                kakaoSession.open(AuthType.KAKAO_LOGIN_ALL, this@AfterSplashActivity)
+            }
+
+            kakaoLogoutEvent.observe(this@AfterSplashActivity){
+                Toast.makeText(this@AfterSplashActivity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -106,7 +100,7 @@ class AfterSplashActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                    //구글 계정이 있다면 그 계정의 토큰으로 로그인 시도
+                    //정상적으로 구글 로그인 하면 -> id토큰을 가져와 Firebase 사용자 인증 정보로 교환
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
@@ -115,7 +109,7 @@ class AfterSplashActivity : AppCompatActivity() {
                 // ...
             }
         }
-
+        //카카오 로그인
         if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data)
             return
@@ -130,15 +124,12 @@ class AfterSplashActivity : AppCompatActivity() {
     }
 
     //FIXME 구글, 페이스북 로그인 인텐트 넘어가는 코드 합칠 수 없을까?
-
     //구글계정 확인되면 로그인 시도
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-
         viewModel.signInWithFirebase(credential)
         viewModel.authenticatedUser?.observe(this@AfterSplashActivity){
             if(it != null){
-                //null아니라면 파이어베이스 로그인 된것
                 val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 //TODO 유저정보 넘기기, 지금은 FirebaseUser 로 되어있는데 이걸 어떻게 가공할까 ?
@@ -152,7 +143,6 @@ class AfterSplashActivity : AppCompatActivity() {
     private fun doFacebookLogin(){
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create()
-
         binding.btnFacebookLogin.setPermissions("email", "public_profile")
         binding.btnFacebookLogin.registerCallback(callbackManager, object :
                 FacebookCallback<LoginResult> {
@@ -171,7 +161,6 @@ class AfterSplashActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun handleFacebookAccessToken(token: AccessToken) {
         //로그아웃 할때까지 자동로그인 되어있음
         val credential = FacebookAuthProvider.getCredential(token.token)
@@ -187,7 +176,7 @@ class AfterSplashActivity : AppCompatActivity() {
         }
     }
 
-    // 세션 콜백 구현
+    // 만들어둔 세션 콜백 구현
     private val sessionCallback: ISessionCallback = object : ISessionCallback {
         override fun onSessionOpened() {
             Log.i("tag", "로그인 성공")
@@ -206,6 +195,7 @@ class AfterSplashActivity : AppCompatActivity() {
         // 세션 콜백 삭제
         Session.getCurrentSession().removeCallback(sessionCallback)
     }
+
 
 }
 

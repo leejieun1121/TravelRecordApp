@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.kakao.auth.Session
 
 class AuthRepository(
 //        private val authRemoteDataSource : AuthDataSource,
@@ -34,6 +35,10 @@ class AuthRepository(
                     // ...
                 }
         return user
+    }
+
+    fun getKakaoSession():Session{
+        return Session.getCurrentSession()
     }
 
 }

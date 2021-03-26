@@ -42,7 +42,8 @@ class LoginActivity : AppCompatActivity() {
                         call: Call<ResponseLogin>,
                         response: Response<ResponseLogin>
                     ) {
-//                        Log.d("tagLogin",response.body()!!.data.token)
+                        Log.d("tagLogin",response.body()?.success.toString())
+                        //response 자체가 token 으로 오네
                     }
 
                     override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {

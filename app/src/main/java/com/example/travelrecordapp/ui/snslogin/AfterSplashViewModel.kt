@@ -38,6 +38,9 @@ class AfterSplashViewModel() : ViewModel() {
     val kakaoLogoutEvent : LiveData<Event<Unit>>
         get() = _kakaoLogoutEvent
 
+    private val _naverLoginEvent = MutableLiveData<Event<Unit>>()
+    val naverLoginEvent : LiveData<Event<Unit>>
+        get() = _naverLoginEvent
 
     //Facebook, Google 로그인 방법마다 user변수를 다르게 둬야할까?
     var authenticatedUser: LiveData<FirebaseUser>? = null
@@ -64,6 +67,11 @@ class AfterSplashViewModel() : ViewModel() {
                 _kakaoLogoutEvent.postValue(Event(Unit))
             }
         })
+    }
+
+    fun signInWithNaver(){
+        Log.d("click","hh1")
+//        _naverLoginEvent.postValue(Event(Unit))
     }
 
 }

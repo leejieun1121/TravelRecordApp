@@ -8,7 +8,8 @@ data class ResponseLogin (
 
 data class User(
     val token:String,
+    val refreshToken:String,
     val email:String,
-    val userIdx:String,
+    val useridx:String,
     val nickname:String
 )

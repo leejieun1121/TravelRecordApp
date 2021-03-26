@@ -1,5 +1,7 @@
 package com.example.travelrecordapp.ui.snslogin
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +31,8 @@ import com.kakao.auth.Session
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.kakao.util.exception.KakaoException
+import com.nhn.android.naverlogin.OAuthLogin
+import com.nhn.android.naverlogin.OAuthLoginHandler
 
 
 class AfterSplashActivity : AppCompatActivity() {
@@ -38,6 +42,10 @@ class AfterSplashActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 10
+
+    lateinit var mOAuthLoginInstance : OAuthLogin
+    lateinit var mContext: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //스플래시테마 -> 다시 원래대로
@@ -64,10 +72,39 @@ class AfterSplashActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
+        //Handler를 사용한 비동기 처리 !
+        @SuppressLint("HandlerLeak")
+        val mOAuthLoginHandler: OAuthLoginHandler = object : OAuthLoginHandler() {
+            override fun run(success: Boolean) {
+                if (success) {
+//                val accessToken: String = mOAuthLoginModule.getAccessToken(baseContext)
+//                val refreshToken: String = mOAuthLoginModule.getRefreshToken(baseContext)
+//                val expiresAt: Long = mOAuthLoginModule.getExpiresAt(baseContext)
+//                val tokenType: String = mOAuthLoginModule.getTokenType(baseContext)
+
+                    val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    val errorCode: String = mOAuthLoginInstance.getLastErrorCode(mContext).code
+                    val errorDesc = mOAuthLoginInstance.getLastErrorDesc(mContext)
+
+                    Toast.makeText(
+                        baseContext, "errorCode:" + errorCode
+                                + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        mContext = applicationContext
+        mOAuthLoginInstance = OAuthLogin.getInstance()
+        mOAuthLoginInstance.init(mContext,getString(R.string.naver_client_id), getString(R.string.naver_client_secret), getString(R.string.naver_client_name))
+        //이거 자체가 onClick인것 같다
+        binding.btnNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
+
         viewModel.apply {
             //로그인 버튼
             loginActivityEvent.observe(this@AfterSplashActivity){
-                Log.d("click","login")
                 val intent = Intent(this@AfterSplashActivity, LoginActivity::class.java)
                 startActivity(intent)
             }
@@ -76,7 +113,6 @@ class AfterSplashActivity : AppCompatActivity() {
                 val intent = Intent(this@AfterSplashActivity, RegisterActivity::class.java)
                 startActivity(intent)
             }
-            //여기서 authenticatedUser 값이 변할때는 왜 관찰 못하고 함수 안에서만 반응할까
 
             kakaoSession.observe(this@AfterSplashActivity){ kakaoSession ->
                 kakaoSession.checkAndImplicitOpen()
@@ -85,6 +121,12 @@ class AfterSplashActivity : AppCompatActivity() {
 
             kakaoLogoutEvent.observe(this@AfterSplashActivity){
                 Toast.makeText(this@AfterSplashActivity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            naverLoginEvent.observe(this@AfterSplashActivity){
+                Log.d("click","hh2")
+
+
             }
         }
     }

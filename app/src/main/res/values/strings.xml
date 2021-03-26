@@ -5,4 +5,7 @@
     <string name="facebook_app_id">127498362652203</string> <string name="fb_login_protocol_scheme">fb127498362652203</string>
     <string name="kakao_app_key">359df4f03caffc82b822d671f885b85c</string>
 
+    <string name="naver_client_id">7DYGrHFGGFWccKAwUlMY</string>
+    <string name="naver_client_secret">2egqVM9yvI</string>
+    <string name="naver_client_name">TravelRecordApp</string>
 </resources>

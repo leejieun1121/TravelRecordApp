@@ -61,6 +61,7 @@ class AfterSplashActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         doFacebookLogin()
+        doNaverLogin()
 
         //현재 세션에 콜백 붙여줌
         //FIXME 카카오 클릭 리스너 내용 주석 처리 해도, 세션 콜백 붙여놓으면 자동로그인이 되는 이유
@@ -72,35 +73,6 @@ class AfterSplashActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-        //Handler를 사용한 비동기 처리 !
-        @SuppressLint("HandlerLeak")
-        val mOAuthLoginHandler: OAuthLoginHandler = object : OAuthLoginHandler() {
-            override fun run(success: Boolean) {
-                if (success) {
-//                val accessToken: String = mOAuthLoginModule.getAccessToken(baseContext)
-//                val refreshToken: String = mOAuthLoginModule.getRefreshToken(baseContext)
-//                val expiresAt: Long = mOAuthLoginModule.getExpiresAt(baseContext)
-//                val tokenType: String = mOAuthLoginModule.getTokenType(baseContext)
-
-                    val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val errorCode: String = mOAuthLoginInstance.getLastErrorCode(mContext).code
-                    val errorDesc = mOAuthLoginInstance.getLastErrorDesc(mContext)
-
-                    Toast.makeText(
-                        baseContext, "errorCode:" + errorCode
-                                + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-
-        mContext = applicationContext
-        mOAuthLoginInstance = OAuthLogin.getInstance()
-        mOAuthLoginInstance.init(mContext,getString(R.string.naver_client_id), getString(R.string.naver_client_secret), getString(R.string.naver_client_name))
-        //이거 자체가 onClick인것 같다
-        binding.btnNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
 
         viewModel.apply {
             //로그인 버튼
@@ -239,5 +211,40 @@ class AfterSplashActivity : AppCompatActivity() {
     }
 
 
+    fun doNaverLogin(){
+        //Handler를 사용한 비동기 처리 !
+        @SuppressLint("HandlerLeak")
+        val mOAuthLoginHandler: OAuthLoginHandler = object : OAuthLoginHandler() {
+            //UI 작업 실행
+            override fun run(success: Boolean) {
+                if (success) {
+//                val accessToken: String = mOAuthLoginModule.getAccessToken(baseContext)
+//                val refreshToken: String = mOAuthLoginModule.getRefreshToken(baseContext)
+//                val expiresAt: Long = mOAuthLoginModule.getExpiresAt(baseContext)
+//                val tokenType: String = mOAuthLoginModule.getTokenType(baseContext)
+
+                    val intent = Intent(this@AfterSplashActivity, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    val errorCode: String = mOAuthLoginInstance.getLastErrorCode(mContext).code
+                    val errorDesc = mOAuthLoginInstance.getLastErrorDesc(mContext)
+
+                    Toast.makeText(
+                            baseContext, "errorCode:" + errorCode
+                            + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        mContext = applicationContext
+        // OAuthLogin 객체를 생성하여 리턴하거나 기존에 생성했던 걸 리턴
+        mOAuthLoginInstance = OAuthLogin.getInstance()
+        mOAuthLoginInstance.init(mContext,getString(R.string.naver_client_id), getString(R.string.naver_client_secret), getString(R.string.naver_client_name))
+        //이거 자체가 onClick
+        //버튼에 setOAuthLoginHandler 하고,  init에서 설정한 핸들러와 함께 startOauthLoginActivity의 인수로 넘겨 네이버 로그인 진행
+        binding.btnNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
+
+    }
 }
 

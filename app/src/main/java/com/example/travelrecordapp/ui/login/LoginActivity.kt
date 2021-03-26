@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.travelrecordapp.MainActivity
@@ -33,25 +34,15 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            loginOkEvent.observe(this@LoginActivity){
-                //TODO DataSource로 넘기기
+            userData.observe(this@LoginActivity){
+                //TODO it.token  넘기기
+                if(it!=null){
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(this@LoginActivity,"존재하지 않는 유저입니다.",Toast.LENGTH_SHORT).show()
+                }
 
-                val user = RequestLogin("test@naver.com", "1234")
-                RetrofitService.service.login(user).enqueue(object : Callback<ResponseLogin> {
-                    override fun onResponse(
-                        call: Call<ResponseLogin>,
-                        response: Response<ResponseLogin>
-                    ) {
-                        Log.d("tagLogin",response.body()?.success.toString())
-                        //response 자체가 token 으로 오네
-                    }
-
-                    override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
-                        Log.d("tagLogin",t.localizedMessage)
-                    }
-                })
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
             }
         }
 

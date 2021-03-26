@@ -3,13 +3,16 @@ package com.example.travelrecordapp.data.repository
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.example.travelrecordapp.data.RequestLogin
+import com.example.travelrecordapp.data.ResponseLogin
+import com.example.travelrecordapp.data.source.AuthDataSource
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.kakao.auth.Session
 
 class AuthRepository(
-//        private val authRemoteDataSource : AuthDataSource,
+        private val authRemoteDataSource : AuthDataSource,
 //        private val authLocalDataSource : AuthDataSource
         )
 {
@@ -39,6 +42,15 @@ class AuthRepository(
 
     fun getKakaoSession():Session{
         return Session.getCurrentSession()
+    }
+
+    fun requestLogin(user: RequestLogin,callback: GetDataCallback<ResponseLogin>){
+        authRemoteDataSource.requestLogin(user,callback)
+    }
+
+    interface GetDataCallback<T>{
+        fun onSuccess(data:T?)
+        fun onFailure(throwable: Throwable)
     }
 
 }

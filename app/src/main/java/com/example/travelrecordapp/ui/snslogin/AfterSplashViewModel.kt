@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import com.example.travelrecordapp.MainActivity
 import com.example.travelrecordapp.data.Event
 import com.example.travelrecordapp.data.repository.AuthRepository
+import com.example.travelrecordapp.data.source.local.AuthLocalDataSource
+import com.example.travelrecordapp.data.source.remote.AuthRemoteDataSource
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
 import com.kakao.auth.ISessionCallback
@@ -18,9 +20,11 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.kakao.util.exception.KakaoException
 
 
-class AfterSplashViewModel() : ViewModel() {
+class AfterSplashViewModel : ViewModel() {
+    private val AuthLocalDataSource = AuthLocalDataSource()
+    private val AuthRemoteDataSource = AuthRemoteDataSource()
 
-    private val authRepository = AuthRepository()
+    private val authRepository = AuthRepository(AuthRemoteDataSource)
 
     private val _loginActivityEvent = MutableLiveData<Event<Unit>>()
     val loginActivityEvent : LiveData<Event<Unit>>
@@ -67,11 +71,6 @@ class AfterSplashViewModel() : ViewModel() {
                 _kakaoLogoutEvent.postValue(Event(Unit))
             }
         })
-    }
-
-    fun signInWithNaver(){
-        Log.d("click","hh1")
-//        _naverLoginEvent.postValue(Event(Unit))
     }
 
 }

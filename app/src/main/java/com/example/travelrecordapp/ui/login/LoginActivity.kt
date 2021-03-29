@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 if(it!=null){
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
-                }else{
+                }else{ 
                     Toast.makeText(this@LoginActivity,"존재하지 않는 유저입니다.",Toast.LENGTH_SHORT).show()
                 }
 

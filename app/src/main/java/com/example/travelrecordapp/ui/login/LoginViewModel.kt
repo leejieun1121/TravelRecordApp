@@ -14,10 +14,10 @@ import com.example.travelrecordapp.data.source.remote.AuthRemoteDataSource
 
 class LoginViewModel : ViewModel() {
 
-    private val AuthLocalDataSource = AuthLocalDataSource()
-    private val AuthRemoteDataSource = AuthRemoteDataSource()
+    private val authLocalDataSource = AuthLocalDataSource()
+    private val authRemoteDataSource = AuthRemoteDataSource()
 
-    private val authRepository = AuthRepository(AuthRemoteDataSource)
+    private val authRepository = AuthRepository(authRemoteDataSource)
 
     private val _findPwActivityEvent = MutableLiveData<Event<Unit>>()
     val findPwActivityEvent : LiveData<Event<Unit>>

@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface RequestInterface {
 
-    @POST("/signup.php")
+    @POST("signup.php")
     fun register(
         @Body body:RequestRegister
     ):Call<ResponseRegister>

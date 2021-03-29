@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothClass
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.travelrecordapp.R
@@ -31,40 +32,9 @@ class RegisterActivity : AppCompatActivity() {
             finishEvent.observe(this@RegisterActivity){
                 finish()
             }
-            registerOkEvent.observe(this@RegisterActivity) {
-                val user = RequestRegister("test@naver.com", "1234", "N", "testtoken", "nick")
-                RetrofitService.service.register(user).enqueue(object : Callback<ResponseRegister>{
-                    override fun onResponse(
-                        call: Call<ResponseRegister>,
-                        response: Response<ResponseRegister>
-                    ) {
-//                       Log.d("tagRegister",response.body()!!.message)
-                    }
-
-                    override fun onFailure(call: Call<ResponseRegister>, t: Throwable) {
-                        Log.d("tagRegister",t.localizedMessage)
-                    }
-                })
-
-//                when(response){
-//                    is NetworkResponse.Success -> {
-//                       Log.d("tag","t1")
-//                    }
-//                    is NetworkResponse.ApiError -> {
-//                        Log.d("tag","t2")
-////                        return NetworkResponse.ApiError(response.body, response.code)
-//                    }
-//                    is NetworkResponse.NetworkError -> {
-//                        Log.d("tag","t3")
-////                        return NetworkResponse.NetworkError(response.error)
-//                    }
-//                    is NetworkResponse.UnknownError -> {
-//                        Log.d("tag","t4")
-////                        return NetworkResponse.UnknownError(response.error)
-//                    }
-//                }
+            emptyWarning.observe(this@RegisterActivity){
+                Toast.makeText(this@RegisterActivity,"입력하지 않은 곳이 있습니다.",Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 }

@@ -23,8 +23,8 @@ class RegisterViewModel : ViewModel() {
     val finishEvent : LiveData<Event<Unit>>
         get() = _finishEvent
 
-    private val _emptyWarning = MutableLiveData<Event<Unit>>()
-    val emptyWarning : LiveData<Event<Unit>>
+    private val _emptyWarning = MutableLiveData<Int>()
+    val emptyWarning : LiveData<Int>
         get() = _emptyWarning
 
     //TODO Register 성공했을때 데이터 -> 변수 만들어서 저장 !
@@ -41,7 +41,7 @@ class RegisterViewModel : ViewModel() {
     fun requestRegister(){
         //빈곳 존재
         if(email.value.isNullOrEmpty()||password.value.isNullOrEmpty()||passwordCheck.value.isNullOrEmpty()||nickname.value.isNullOrEmpty()){
-            _emptyWarning.value = Event(Unit)
+            _emptyWarning.value = 0
         }else { //빈곳 없을때 ,
             //TODO 닉네임 중복이나 패스워드 불일치 문제일때 어떻게 값이 오는지
             //TODO provider, token값 뭘 넣어줘야하는지
@@ -49,9 +49,14 @@ class RegisterViewModel : ViewModel() {
             val user = RequestRegister(email.value.toString(), password.value.toString(), "provider", "token", nickname.value.toString())
             authRepository.requestRegister(user, object : AuthRepository.GetDataCallback<ResponseRegister> {
                 override fun onSuccess(data: ResponseRegister?) {
+                    Log.d("tagRegister", data!!.message)
                     if (data != null) {
-                        Log.d("tagRegister", data.message)
+                        if(!data.success){
+                            _emptyWarning.value = 1
+                        }else{
+                            //TODO 넘어온 유저값 넣어주기
 
+                        }
                     } else {
                         //존재하지 않는 계정
                         Log.d("tagRegister", "존재 x ")

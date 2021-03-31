@@ -33,14 +33,17 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.kakao.util.exception.KakaoException
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class AfterSplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAfterSplashBinding
     private val viewModel: AfterSplashViewModel by viewModels()
 
     private lateinit var callbackManager: CallbackManager
-    private lateinit var googleSignInClient: GoogleSignInClient
+    @Inject lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 10
 
     lateinit var mOAuthLoginInstance : OAuthLogin
@@ -52,13 +55,6 @@ class AfterSplashActivity : AppCompatActivity() {
         setTheme(R.style.Theme_TravelRecordApp)
 
         setupBinding()
-
-        // FIXME 여기 DI로 바꿔보자
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         doFacebookLogin()
         doNaverLogin()

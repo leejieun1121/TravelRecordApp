@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 
 }
 apply plugin: 'com.google.gms.google-services'
@@ -115,5 +116,23 @@ dependencies {
     implementation "androidx.legacy:legacy-support-core-utils:$android_x_version"
     implementation "androidx.browser:browser:$android_x_version"
     implementation "androidx.legacy:legacy-support-v4:$android_x_version"
+
+    def daggerVersion = '2.25.4'
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //hilt + viewmodel
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    implementation "androidx.hilt:hilt-common:1.0.0-alpha02"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
 
 }

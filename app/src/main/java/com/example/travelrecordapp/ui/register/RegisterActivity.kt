@@ -33,7 +33,11 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
             }
             emptyWarning.observe(this@RegisterActivity){
-                Toast.makeText(this@RegisterActivity,"입력하지 않은 곳이 있습니다.",Toast.LENGTH_SHORT).show()
+                when(it){
+                    0 -> Toast.makeText(this@RegisterActivity,"입력하지 않은 곳이 있습니다.",Toast.LENGTH_SHORT).show()
+                    1 -> Toast.makeText(this@RegisterActivity,"이미 가입된 유저입니다.",Toast.LENGTH_SHORT).show()
+
+                }
             }
         }
     }

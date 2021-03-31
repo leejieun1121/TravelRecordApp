@@ -2,8 +2,10 @@ package com.example.travelrecordapp.ui.snslogin
 
 import android.app.Application
 import com.kakao.auth.KakaoSDK
+import dagger.hilt.android.HiltAndroidApp
 
 //TODO DI 하기
+@HiltAndroidApp
 class GlobalApplication : Application() {
     override fun onCreate() {
         super.onCreate()

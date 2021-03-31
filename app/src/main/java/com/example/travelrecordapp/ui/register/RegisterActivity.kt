@@ -13,10 +13,14 @@ import com.example.travelrecordapp.data.RequestRegister
 import com.example.travelrecordapp.data.ResponseRegister
 import com.example.travelrecordapp.data.RetrofitService
 import com.example.travelrecordapp.databinding.ActivityRegisterBinding
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
+//viewModel Inject해주기 위해
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private val viewModel: RegisterViewModel by viewModels()
@@ -32,13 +36,10 @@ class RegisterActivity : AppCompatActivity() {
             finishEvent.observe(this@RegisterActivity){
                 finish()
             }
-            emptyWarning.observe(this@RegisterActivity){
-                when(it){
-                    0 -> Toast.makeText(this@RegisterActivity,"입력하지 않은 곳이 있습니다.",Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(this@RegisterActivity,"이미 가입된 유저입니다.",Toast.LENGTH_SHORT).show()
-
-                }
+            toastMessage.observe(this@RegisterActivity){
+                Toast.makeText(this@RegisterActivity,it,Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 }

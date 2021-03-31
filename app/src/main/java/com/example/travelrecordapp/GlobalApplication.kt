@@ -1,6 +1,7 @@
-package com.example.travelrecordapp.ui.snslogin
+package com.example.travelrecordapp
 
 import android.app.Application
+import com.example.travelrecordapp.ui.snslogin.KakaoSDKAdapter
 import com.kakao.auth.KakaoSDK
 import dagger.hilt.android.HiltAndroidApp
 

@@ -8,11 +8,14 @@ import com.example.travelrecordapp.data.source.AuthDataSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class AuthRemoteDataSource : AuthDataSource{
+class AuthRemoteDataSource @Inject constructor(
+    private val retrofit: RequestInterface
+): AuthDataSource{
     //앱 자체 로그인
     override fun requestLogin(user : RequestLogin, callback: AuthRepository.GetDataCallback<ResponseLogin>) {
-        RetrofitService.service.login(user).enqueue(object : Callback<ResponseLogin>{
+        retrofit.login(user).enqueue(object : Callback<ResponseLogin>{
             override fun onResponse(call: Call<ResponseLogin>, response: Response<ResponseLogin>) {
                 if(response.isSuccessful){
                     callback.onSuccess(response.body())
@@ -27,7 +30,7 @@ class AuthRemoteDataSource : AuthDataSource{
     }
 
     override fun requestRegister(user: RequestRegister, callback: AuthRepository.GetDataCallback<ResponseRegister>) {
-        RetrofitService.service.register(user).enqueue(object: Callback<ResponseRegister>{
+        retrofit.register(user).enqueue(object: Callback<ResponseRegister>{
             override fun onResponse(call: Call<ResponseRegister>, response: Response<ResponseRegister>) {
                 if(response.isSuccessful){
                     callback.onSuccess(response.body())

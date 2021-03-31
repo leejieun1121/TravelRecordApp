@@ -12,14 +12,14 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.kakao.auth.Session
+import javax.inject.Inject
 
-class AuthRepository(
+class AuthRepository (
         private val authRemoteDataSource : AuthDataSource,
 //        private val authLocalDataSource : AuthDataSource
 // FIXME 왜 localdatasource에 오버라이드한 메소드 내용이 없으면 실행이 안되는걸까?
         )
 {
-
     private val auth = FirebaseAuth.getInstance()
     private val user = MutableLiveData<FirebaseUser>()
 

@@ -36,7 +36,6 @@ import com.nhn.android.naverlogin.OAuthLoginHandler
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class AfterSplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAfterSplashBinding
@@ -53,7 +52,6 @@ class AfterSplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //스플래시테마 -> 다시 원래대로
         setTheme(R.style.Theme_TravelRecordApp)
-
         setupBinding()
 
         doFacebookLogin()
@@ -66,6 +64,7 @@ class AfterSplashActivity : AppCompatActivity() {
         //구글 로그인 버튼 클릭
         binding.btnGoogleLogin.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
+            //TODO deprecated 되었음 고치기
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
@@ -89,12 +88,6 @@ class AfterSplashActivity : AppCompatActivity() {
 
             kakaoLogoutEvent.observe(this@AfterSplashActivity){
                 Toast.makeText(this@AfterSplashActivity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-            }
-
-            naverLoginEvent.observe(this@AfterSplashActivity){
-                Log.d("click","hh2")
-
-
             }
         }
     }

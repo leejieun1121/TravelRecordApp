@@ -3,6 +3,7 @@ package com.example.travelrecordapp.ui.snslogin
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,11 +21,13 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.kakao.util.exception.KakaoException
 
 
-class AfterSplashViewModel : ViewModel() {
-    private val AuthLocalDataSource = AuthLocalDataSource()
-    private val AuthRemoteDataSource = AuthRemoteDataSource()
-
-    private val authRepository = AuthRepository(AuthRemoteDataSource)
+class AfterSplashViewModel @ViewModelInject constructor(
+    private val authRepository : AuthRepository
+) : ViewModel() {
+//    private val AuthLocalDataSource = AuthLocalDataSource()
+//    private val AuthRemoteDataSource = AuthRemoteDataSource()
+//
+//    private val authRepository = AuthRepository(AuthRemoteDataSource)
 
     private val _loginActivityEvent = MutableLiveData<Event<Unit>>()
     val loginActivityEvent : LiveData<Event<Unit>>
@@ -41,10 +44,6 @@ class AfterSplashViewModel : ViewModel() {
     private val _kakaoLogoutEvent = MutableLiveData<Event<Unit>>()
     val kakaoLogoutEvent : LiveData<Event<Unit>>
         get() = _kakaoLogoutEvent
-
-    private val _naverLoginEvent = MutableLiveData<Event<Unit>>()
-    val naverLoginEvent : LiveData<Event<Unit>>
-        get() = _naverLoginEvent
 
     //Facebook, Google 로그인 방법마다 user변수를 다르게 둬야할까?
     var authenticatedUser: LiveData<FirebaseUser>? = null

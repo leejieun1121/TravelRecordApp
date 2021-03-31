@@ -1,5 +1,6 @@
 package com.example.travelrecordapp.ui.snslogin
 
+import com.example.travelrecordapp.GlobalApplication
 import com.kakao.auth.*
 
 class KakaoSDKAdapter : KakaoAdapter() {

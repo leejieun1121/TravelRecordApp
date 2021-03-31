@@ -1,6 +1,7 @@
 package com.example.travelrecordapp.ui.register
 
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,20 +13,22 @@ import com.example.travelrecordapp.data.repository.AuthRepository
 import com.example.travelrecordapp.data.source.local.AuthLocalDataSource
 import com.example.travelrecordapp.data.source.remote.AuthRemoteDataSource
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel @ViewModelInject constructor(
+    private val authRepository : AuthRepository
+)   : ViewModel() {
 
-    private val authLocalDataSource = AuthLocalDataSource()
-    private val authRemoteDataSource = AuthRemoteDataSource()
-
-    private val authRepository = AuthRepository(authRemoteDataSource)
+//    private val authLocalDataSource = AuthLocalDataSource()
+//    private val authRemoteDataSource = AuthRemoteDataSource()
+//
+//    private val authRepository = AuthRepository(authRemoteDataSource)
 
     private val _finishEvent = MutableLiveData<Event<Unit>>()
     val finishEvent : LiveData<Event<Unit>>
         get() = _finishEvent
 
-    private val _emptyWarning = MutableLiveData<Int>()
-    val emptyWarning : LiveData<Int>
-        get() = _emptyWarning
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage : LiveData<String>
+        get() = _toastMessage
 
     //TODO Register 성공했을때 데이터 -> 변수 만들어서 저장 !
 
@@ -41,25 +44,23 @@ class RegisterViewModel : ViewModel() {
     fun requestRegister(){
         //빈곳 존재
         if(email.value.isNullOrEmpty()||password.value.isNullOrEmpty()||passwordCheck.value.isNullOrEmpty()||nickname.value.isNullOrEmpty()){
-            _emptyWarning.value = 0
-        }else { //빈곳 없을때 ,
-            //TODO 닉네임 중복이나 패스워드 불일치 문제일때 어떻게 값이 오는지
+            _toastMessage.value = "입력하지 않은 곳이 있습니다."
+        }else { //빈곳 없을때
+            //TODO 닉네임 중복이나 패스워드 불일치 문제처리
             //TODO provider, token값 뭘 넣어줘야하는지
-                // TODO 어떤게 달라야 정상가입이 완료되는건지 모르겠음
+                // TODO 성공일때 data=null이 맞는건가??
             val user = RequestRegister(email.value.toString(), password.value.toString(), "provider", "token", nickname.value.toString())
             authRepository.requestRegister(user, object : AuthRepository.GetDataCallback<ResponseRegister> {
                 override fun onSuccess(data: ResponseRegister?) {
-                    Log.d("tagRegister", data!!.message)
-                    if (data != null) {
-                        if(!data.success){
-                            _emptyWarning.value = 1
-                        }else{
-                            //TODO 넘어온 유저값 넣어주기
-
-                        }
-                    } else {
-                        //존재하지 않는 계정
-                        Log.d("tagRegister", "존재 x ")
+                    if(!data!!.success){
+                        //네트워크 응답은 왔는데 회원가입이 불가능한 경우(이미 가입된 유)
+                        Log.d("tagRegister1", data.message)
+                        _toastMessage.value = "이미 가입된 유저입니다."
+                    }else{
+                        //정상 회원가입
+                        Log.d("tagRegister2", data.toString())
+                        _finishEvent.postValue(Event(Unit))
+                        _toastMessage.value = "회원가입 완료!"
                     }
                 }
 

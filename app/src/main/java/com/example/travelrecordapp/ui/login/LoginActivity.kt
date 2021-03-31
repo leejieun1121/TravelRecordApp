@@ -11,10 +11,12 @@ import com.example.travelrecordapp.MainActivity
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.data.*
 import com.example.travelrecordapp.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
@@ -39,10 +41,11 @@ class LoginActivity : AppCompatActivity() {
                 if(it!=null){
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
-                }else{ 
-                    Toast.makeText(this@LoginActivity,"존재하지 않는 유저입니다.",Toast.LENGTH_SHORT).show()
                 }
+            }
 
+            toastMessage.observe(this@LoginActivity){
+                Toast.makeText(this@LoginActivity,it,Toast.LENGTH_SHORT).show()
             }
         }
 

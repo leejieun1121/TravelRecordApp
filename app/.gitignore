@@ -1,2 +1,2 @@
 /build
-git rm --cached google-services.json
+google-services.json

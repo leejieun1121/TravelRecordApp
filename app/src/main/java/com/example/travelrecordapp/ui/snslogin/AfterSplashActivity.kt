@@ -68,7 +68,6 @@ class AfterSplashActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-
         viewModel.apply {
             //로그인 버튼
             loginActivityEvent.observe(this@AfterSplashActivity){
@@ -187,7 +186,6 @@ class AfterSplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         override fun onSessionOpenFailed(exception: KakaoException) {
             Log.e("tag", "로그인 실패", exception)
         }
@@ -198,7 +196,6 @@ class AfterSplashActivity : AppCompatActivity() {
         // 세션 콜백 삭제
         Session.getCurrentSession().removeCallback(sessionCallback)
     }
-
 
     fun doNaverLogin(){
         //Handler를 사용한 비동기 처리 !

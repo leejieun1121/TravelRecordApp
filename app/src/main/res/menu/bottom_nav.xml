@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="HOME" />
     <item
-        android:id="@+id/todo"
+        android:id="@+id/schedule"
         android:icon="@drawable/ic_baseline_list_alt_24"
-        android:title="TODO" />
+        android:title="SCHEDULE" />
     <item
         android:id="@+id/map"
         android:icon="@drawable/ic_baseline_location_on_24"

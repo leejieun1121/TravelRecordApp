@@ -1,60 +1,91 @@
 package com.example.travelrecordapp.ui.map
 
+import android.Manifest
+import android.content.Context.LOCATION_SERVICE
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.example.travelrecordapp.R
+import com.example.travelrecordapp.databinding.FragmentMapBinding
+import com.example.travelrecordapp.databinding.FragmentScheduleBinding
+import com.example.travelrecordapp.ui.home.HomeViewModel
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class MapFragment : Fragment(),OnMapReadyCallback{
+    private lateinit var binding: FragmentMapBinding
+    private val viewModel: MapViewModel by viewModels()
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MapFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var mLocationManager: LocationManager
+    private lateinit var mLocationListener: LocationListener
+    private lateinit var mMap: GoogleMap
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var lat =0.0
+    private var lng =0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        val mapFragment = childFragmentManager.findFragmentById(R.id.fragment_google_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onMapReady(googleMap: GoogleMap) {
+        //TODO 퍼미션 설정, Location Manager 사용해서 현재위치 넣기
+        getCurrentLocation()
+        permissionCheck()
+        mMap = googleMap
+    }
+
+    private fun permissionCheck(){
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mLocationManager!!.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                3000L,
+                30f,
+                mLocationListener
+            )
+        }
+    }
+
+    private fun getCurrentLocation(){
+        mLocationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
+        mLocationListener = object : LocationListener{
+            override fun onLocationChanged(location: Location) {
+                lat = location.latitude
+                lng = location.longitude
+                Log.d("tagLocation", "Lat: ${lat}, lon: ${lng}")
+
+                var currentLocation = LatLng(lat, lng)
+                mMap.addMarker(MarkerOptions().position(currentLocation).title("현재위치"))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
+
             }
+        }
     }
 }

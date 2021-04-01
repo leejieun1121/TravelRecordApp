@@ -10,10 +10,10 @@
         android:name="com.example.travelrecordapp.ui.home.HomeFragment"
         android:label="HomeFragment" />
     <fragment
-        android:id="@+id/todo"
-        android:name="com.example.travelrecordapp.ui.todo.TodoFragment"
+        android:id="@+id/schedule"
+        android:name="com.example.travelrecordapp.ui.schedule.ScheduleFragment"
         android:label="fragment_todo"
-        tools:layout="@layout/fragment_todo" />
+        tools:layout="@layout/fragment_schedule" />
     <fragment
         android:id="@+id/map"
         android:name="com.example.travelrecordapp.ui.map.MapFragment"

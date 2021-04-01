@@ -17,11 +17,6 @@ class LoginViewModel @ViewModelInject constructor(
     private val authRepository : AuthRepository
 )  : ViewModel() {
 
-//    private val authLocalDataSource = AuthLocalDataSource()
-//    private val authRemoteDataSource = AuthRemoteDataSource()
-//
-//    private val authRepository = AuthRepository(authRemoteDataSource)
-
     private val _findPwActivityEvent = MutableLiveData<Event<Unit>>()
     val findPwActivityEvent : LiveData<Event<Unit>>
         get() = _findPwActivityEvent

@@ -17,11 +17,6 @@ class RegisterViewModel @ViewModelInject constructor(
     private val authRepository : AuthRepository
 )   : ViewModel() {
 
-//    private val authLocalDataSource = AuthLocalDataSource()
-//    private val authRemoteDataSource = AuthRemoteDataSource()
-//
-//    private val authRepository = AuthRepository(authRemoteDataSource)
-
     private val _finishEvent = MutableLiveData<Event<Unit>>()
     val finishEvent : LiveData<Event<Unit>>
         get() = _finishEvent
@@ -47,18 +42,15 @@ class RegisterViewModel @ViewModelInject constructor(
             _toastMessage.value = "입력하지 않은 곳이 있습니다."
         }else { //빈곳 없을때
             //TODO 닉네임 중복이나 패스워드 불일치 문제처리
-            //TODO provider, token값 뭘 넣어줘야하는지
                 // TODO 성공일때 data=null이 맞는건가??
             val user = RequestRegister(email.value.toString(), password.value.toString(), "provider", "token", nickname.value.toString())
             authRepository.requestRegister(user, object : AuthRepository.GetDataCallback<ResponseRegister> {
                 override fun onSuccess(data: ResponseRegister?) {
                     if(!data!!.success){
-                        //네트워크 응답은 왔는데 회원가입이 불가능한 경우(이미 가입된 유)
-                        Log.d("tagRegister1", data.message)
+                        //네트워크 응답은 왔는데 회원가입이 불가능한 경우(이미 가입된 유저)
                         _toastMessage.value = "이미 가입된 유저입니다."
                     }else{
                         //정상 회원가입
-                        Log.d("tagRegister2", data.toString())
                         _finishEvent.postValue(Event(Unit))
                         _toastMessage.value = "회원가입 완료!"
                     }

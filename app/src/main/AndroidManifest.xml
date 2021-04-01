@@ -3,6 +3,12 @@
     package="com.example.travelrecordapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!--    정확한 위치    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--    대략적인 위치    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
 
 
     <application
@@ -18,6 +24,10 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBMLaPl9tAkAJo1H3V8IPHGwMxZeOMpIhE" />
         
         <activity
             android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"

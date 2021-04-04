@@ -17,4 +17,9 @@ interface RequestInterface {
     fun login(
         @Body body:RequestLogin
     ):Call<ResponseLogin>
+
+    @POST("tourlist.php")
+    fun getTourList(
+            @Body body:RequestTourList
+    ):Call<ResponseTourlist>
 }

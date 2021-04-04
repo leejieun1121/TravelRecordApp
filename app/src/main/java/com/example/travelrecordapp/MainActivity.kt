@@ -7,7 +7,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
 import com.example.travelrecordapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

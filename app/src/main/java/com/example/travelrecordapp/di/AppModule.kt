@@ -4,7 +4,9 @@ import com.example.travelrecordapp.data.NetworkResponseAdapterFactory
 import com.example.travelrecordapp.data.RequestInterface
 import com.example.travelrecordapp.data.RetrofitService
 import com.example.travelrecordapp.data.repository.AuthRepository
+import com.example.travelrecordapp.data.repository.TourRepository
 import com.example.travelrecordapp.data.source.remote.AuthRemoteDataSource
+import com.example.travelrecordapp.data.source.remote.TourRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +43,11 @@ object AppModule {
     fun provideAuthRepository(
         authRemoteDataSource: AuthRemoteDataSource
     ):AuthRepository = AuthRepository(authRemoteDataSource)
+
+    @Singleton
+    @Provides
+    fun provideTourRepository(
+            tourRemoteDataSource: TourRemoteDataSource
+    ):TourRepository = TourRepository(tourRemoteDataSource)
 
 }

@@ -18,7 +18,9 @@ import com.example.travelrecordapp.data.MyPlaceData
 import com.example.travelrecordapp.databinding.FragmentHomeBinding
 import com.example.travelrecordapp.ui.login.LoginViewModel
 import com.example.travelrecordapp.util.VerticalSpaceItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
@@ -39,6 +41,8 @@ class HomeFragment : Fragment() {
         //FIXME 서버에서 데이터 가져오기
         addItems()
         setRecyclerView()
+
+        viewModel.getTourList()
 
         return binding.root
     }

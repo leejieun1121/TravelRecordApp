@@ -1,11 +1,14 @@
 package com.example.travelrecordapp
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.travelrecordapp.data.TourData
+import com.example.travelrecordapp.util.BaseRecyclerAdapter
 
 @BindingAdapter("imageUrl")
 fun bindImage(imageView: ImageView, imgUrl:String?){
@@ -25,5 +28,13 @@ fun setTourTime(textView: TextView,tourData: TourData?){
         textView.text = tourData!!.tourbegindate.replace("-","/") + " - " +"AM"+tourData!!.tourbegintime.split(" ")[1].replace("시",":00")
     }else{
         textView.text = tourData!!.tourbegindate.replace("-","/") + " - " +"PM"+tourData!!.tourbegintime.split(" ")[1].replace("시",":00")
+    }
+}
+
+@BindingAdapter("replaceAll")
+fun RecyclerView.replaceAll(list: List<Any>?) {
+    (this.adapter as? BaseRecyclerAdapter<Any, *>)?.run {
+        replaceAll(list)
+        notifyDataSetChanged()
     }
 }

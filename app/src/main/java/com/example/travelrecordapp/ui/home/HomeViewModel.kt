@@ -22,7 +22,6 @@ class HomeViewModel @ViewModelInject constructor(
         tourRepository.getTourList(RequestTourList("1"),object:TourRepository.GetDataCallback<ResponseTourlist>{
             override fun onSuccess(data: ResponseTourlist?) {
                 if(data!=null){
-                    Log.d("abraham",data.data.toString())
                     _tourList.postValue(data.data.tourlist)
                 }
             }

@@ -15,11 +15,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelrecordapp.BR
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.data.MyPlaceData
 import com.example.travelrecordapp.data.TourData
 import com.example.travelrecordapp.databinding.FragmentHomeBinding
+import com.example.travelrecordapp.databinding.ItemMyPlaceBinding
 import com.example.travelrecordapp.ui.login.LoginViewModel
+import com.example.travelrecordapp.util.BaseRecyclerAdapter
 import com.example.travelrecordapp.util.VerticalSpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,12 +45,16 @@ class HomeFragment : Fragment() {
 
         viewModel.getTourList()
 
-        viewModel.apply {
-            tourList.observe(viewLifecycleOwner, Observer {
-                binding.rvMyPlace.adapter = MyPlaceAdapter(it as MutableList<TourData>)
-                Log.d("abraham2",it.toString())
-            })
-        }
+        binding.rvMyPlace.adapter = object:BaseRecyclerAdapter<TourData, ItemMyPlaceBinding>(
+                layoutResId = R.layout.item_my_place,
+                bindingVariableId = BR.TourData
+        ){ }
+
+//        viewModel.apply {
+//            tourList.observe(viewLifecycleOwner, Observer {
+//                binding.rvMyPlace.adapter = MyPlaceAdapter(it as MutableList<TourData>)
+//            })
+//        }
         return binding.root
     }
 

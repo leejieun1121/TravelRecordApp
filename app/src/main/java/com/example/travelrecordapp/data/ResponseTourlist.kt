@@ -14,7 +14,7 @@ data class TourList(
 data class TourData (
         val tourimg: String,
         val tourspotname : String,
-        val tourbeginadate:String,
+        val tourbegindate:String,
         val tourbegintime:String,
         val tourhour : String
         )

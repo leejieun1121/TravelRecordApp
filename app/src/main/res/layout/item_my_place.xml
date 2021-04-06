@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
+            name="viewModel"
+            type="com.example.travelrecordapp.ui.home.HomeViewModel" />
+
+        <variable
             name="TourData"
             type="com.example.travelrecordapp.data.TourData" />
+
+        <variable
+            name="itemPosition"
+            type="int" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="15dp"
+        android:onClick="@{()-> viewModel.getPosition(itemPosition)}"
         app:cardCornerRadius="10dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

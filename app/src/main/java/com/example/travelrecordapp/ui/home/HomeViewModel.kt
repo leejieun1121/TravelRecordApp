@@ -14,6 +14,10 @@ class HomeViewModel @ViewModelInject constructor(
         private val tourRepository : TourRepository
 ): ViewModel() {
 
+    private val _position = MutableLiveData<Int>()
+    val position : LiveData<Int>
+        get() = _position
+
     private val _tourList = MutableLiveData<List<TourData>>()
     val tourList : LiveData<List<TourData>>
     get() = _tourList
@@ -31,5 +35,10 @@ class HomeViewModel @ViewModelInject constructor(
             }
 
         })
+    }
+
+    fun getPosition(position:Int){
+        Log.d("checkposition",position.toString())
+        _position.value = position
     }
 }

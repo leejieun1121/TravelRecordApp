@@ -10,14 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelrecordapp.BR
 
 
-abstract class BaseRecyclerAdapter<ITEM:Any, VDB:ViewDataBinding> (
+abstract class BaseRecyclerAdapter<ITEM:Any, VDB:ViewDataBinding, VM:ViewModel> (
     @LayoutRes private val layoutResId: Int,
     private val bindingVariableId: Int? = null,
-) : RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerViewHolder<VDB>>(){
+    private val viewModel : ViewModel,
 
-//    abstract val listener: OnItemClickListener?
+    ) : RecyclerView.Adapter<BaseRecyclerAdapter.BaseRecyclerViewHolder<VDB,VM>>(){
 
     private val items = mutableListOf<ITEM>()
 
@@ -30,13 +31,14 @@ abstract class BaseRecyclerAdapter<ITEM:Any, VDB:ViewDataBinding> (
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= object: BaseRecyclerViewHolder<VDB>(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= object: BaseRecyclerViewHolder<VDB,VM>(
         layoutResId = layoutResId,
         parent = parent,
-        bindingVariableId = bindingVariableId
+        bindingVariableId = bindingVariableId,
+        viewModel = viewModel
     ) { }
 
-    override fun onBindViewHolder(holder: BaseRecyclerViewHolder<VDB>, position: Int) {
+    override fun onBindViewHolder(holder: BaseRecyclerViewHolder<VDB,VM>, position: Int) {
         holder.bind(items[position])
     }
 
@@ -44,10 +46,11 @@ abstract class BaseRecyclerAdapter<ITEM:Any, VDB:ViewDataBinding> (
         return items.size
     }
 
-    abstract class BaseRecyclerViewHolder<VDB:ViewDataBinding>(
+    abstract class BaseRecyclerViewHolder<VDB:ViewDataBinding,VM:ViewModel>(
         @LayoutRes layoutResId: Int,
         parent: ViewGroup,
-        private val bindingVariableId: Int?
+        private val bindingVariableId: Int?,
+        private val viewModel : ViewModel,
 
         ) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(layoutResId,parent,false)
@@ -58,10 +61,8 @@ abstract class BaseRecyclerAdapter<ITEM:Any, VDB:ViewDataBinding> (
             try {
                 bindingVariableId?.let {
                     binding.setVariable(it, item)
-                    Log.d("datadata",item.toString())
-//                    dataBinding.root.setOnClickListener {
-//                        listener?.onItemClicked(item, adapterPosition)
-//                    }
+                    binding.setVariable(BR.viewModel, viewModel as VM)
+                    binding.setVariable(BR.itemPosition,adapterPosition)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -70,10 +71,5 @@ abstract class BaseRecyclerAdapter<ITEM:Any, VDB:ViewDataBinding> (
 
         }
     }
-
-    interface OnItemClickListener {
-        fun onItemClicked(item: Any?, position:Int?)
-    }
-
 }
 

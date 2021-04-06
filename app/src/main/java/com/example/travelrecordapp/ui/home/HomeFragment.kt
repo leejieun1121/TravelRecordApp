@@ -45,16 +45,17 @@ class HomeFragment : Fragment() {
 
         viewModel.getTourList()
 
-        binding.rvMyPlace.adapter = object:BaseRecyclerAdapter<TourData, ItemMyPlaceBinding>(
+        binding.rvMyPlace.adapter = object:BaseRecyclerAdapter<TourData, ItemMyPlaceBinding, HomeViewModel>(
                 layoutResId = R.layout.item_my_place,
-                bindingVariableId = BR.TourData
+                bindingVariableId = BR.TourData,
+                viewModel = viewModel
         ){ }
 
-//        viewModel.apply {
-//            tourList.observe(viewLifecycleOwner, Observer {
-//                binding.rvMyPlace.adapter = MyPlaceAdapter(it as MutableList<TourData>)
-//            })
-//        }
+        viewModel.apply {
+            position.observe(viewLifecycleOwner, Observer {
+                //TODO 해당 position의 id 넘겨서 SCHEDULE Fragment 로 이동
+            })
+        }
         return binding.root
     }
 

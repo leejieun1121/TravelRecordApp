@@ -33,7 +33,7 @@ fun setTourTime(textView: TextView,tourData: TourData?){
 
 @BindingAdapter("replaceAll")
 fun RecyclerView.replaceAll(list: List<Any>?) {
-    (this.adapter as? BaseRecyclerAdapter<Any, *>)?.run {
+    (this.adapter as? BaseRecyclerAdapter<Any, *,*>)?.run {
         replaceAll(list)
         notifyDataSetChanged()
     }

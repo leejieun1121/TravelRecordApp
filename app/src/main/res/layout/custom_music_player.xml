@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_round_border_player">
+
+    <ImageView
+        android:id="@+id/btn_audio_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/icons_dark_cross_small"
+        />
+
+    <ImageView
+        android:id="@+id/btn_audio_list"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/sortmaterial"
+        />
+
+    <TextView
+        android:id="@+id/tv_audio_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="고씨동굴"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center"
+        />
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+        android:id="@id/exo_progress"
+        android:layout_width="120dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@id/exo_rew"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/before_icon"
+        android:layout_gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/exo_play"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/stopicon"
+        />
+
+    <ImageView
+        android:id="@+id/exo_pause"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/stopicon"
+        />
+
+    <ImageView
+        android:id="@id/exo_ffwd"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/next_icon"
+        android:layout_gravity="center"
+        />
+
+
+</LinearLayout>

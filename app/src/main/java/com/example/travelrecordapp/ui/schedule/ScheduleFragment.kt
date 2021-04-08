@@ -13,7 +13,6 @@ import com.example.travelrecordapp.databinding.FragmentHomeBinding
 import com.example.travelrecordapp.databinding.FragmentScheduleBinding
 import com.example.travelrecordapp.ui.home.HomeFragment
 import com.example.travelrecordapp.ui.home.HomeViewModel
-import com.example.travelrecordapp.ui.home.MyPlaceAdapter
 import com.example.travelrecordapp.util.VerticalSpaceItemDecoration
 
 class ScheduleFragment : Fragment() {

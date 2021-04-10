@@ -150,7 +150,6 @@
                     android:text="한줄설명"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,9 +164,7 @@
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -183,19 +180,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_detail_explain"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_explain">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:text="ㅁㄴㅇㄹㄴㅇㄹ \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n asdfasdf \n"
                     android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_detail_explain"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_explain" />
+                   />
+                </ScrollView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
 
 
         </LinearLayout>

@@ -60,7 +60,6 @@ class ScheduleFragment : Fragment(), scheduleItemClick {
 
     override fun scheduleItemClick(position: Int) {
         //TODO 해당 position.id의 디테일 화면
-        Log.d("click",position.toString())
         val intent = Intent(requireActivity(),DetailActivity::class.java)
         startActivity(intent)
     }

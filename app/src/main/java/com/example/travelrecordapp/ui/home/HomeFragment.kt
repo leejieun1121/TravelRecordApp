@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelrecordapp.BR
@@ -54,6 +55,7 @@ class HomeFragment : Fragment() {
         viewModel.apply {
             position.observe(viewLifecycleOwner, Observer {
                 //TODO 해당 position의 id 넘겨서 SCHEDULE Fragment 로 이동
+                findNavController().navigate(R.id.action_home_to_schedule)
             })
         }
         return binding.root

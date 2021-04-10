@@ -1,30 +1,24 @@
 package com.example.travelrecordapp
 
-import android.media.Image
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
 import com.example.travelrecordapp.databinding.ActivityMainBinding
-import com.example.travelrecordapp.ui.detail.DetailFragment
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.ExoPlayerFactory
+import com.example.travelrecordapp.ui.detail.MediaListActivity
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var player: SimpleExoPlayer? = null
+    //TODO 여기 오디오 바꾸기 
     private val songUrl: String = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
     private lateinit var binding: ActivityMainBinding
@@ -37,11 +31,14 @@ class MainActivity : AppCompatActivity() {
 
         initMusicPlayer()
         binding.pcvMain.findViewById<ImageView>(R.id.btn_audio_finish).setOnClickListener {
-            //TODO x버튼 처리
+            //TODO 플레이어 종료
+            binding.pcvMain.hide() //지금은 hide만
         }
 
         binding.pcvMain.findViewById<ImageView>(R.id.btn_audio_list).setOnClickListener {
-            //TODO audio list fragment로 이동
+            //FIXME 넘어갈때 player 객체 같이 넘겨줘야할듯
+            val intent = Intent(this@MainActivity,MediaListActivity::class.java)
+            startActivity(intent)
         }
     }
 

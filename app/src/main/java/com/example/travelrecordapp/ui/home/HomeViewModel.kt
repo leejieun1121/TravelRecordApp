@@ -38,7 +38,6 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun getPosition(position:Int){
-        Log.d("checkposition",position.toString())
         _position.value = position
     }
 }

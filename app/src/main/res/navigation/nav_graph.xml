@@ -8,12 +8,20 @@
     <fragment
         android:id="@+id/home"
         android:name="com.example.travelrecordapp.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_home_to_schedule"
+            app:destination="@id/schedule" />
+    </fragment>
     <fragment
         android:id="@+id/schedule"
         android:name="com.example.travelrecordapp.ui.schedule.ScheduleFragment"
         android:label="fragment_todo"
-        tools:layout="@layout/fragment_schedule" />
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_schedule_to_home"
+            app:destination="@id/home" />
+    </fragment>
     <fragment
         android:id="@+id/map"
         android:name="com.example.travelrecordapp.ui.map.MapFragment"

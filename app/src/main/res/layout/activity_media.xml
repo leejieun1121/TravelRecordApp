@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="viewModel"
             type="com.example.travelrecordapp.ui.detail.MediaViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -59,38 +59,38 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="350dp"
         android:layout_marginTop="50dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/pcv_media"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="고씨동굴 1"
-        android:textColor="@color/black"
-        android:textSize="28sp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:controller_layout_id="@layout/custom_music_media"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="고씨 동굴을 추억하며..."
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        />
 
 
+    <!--    <com.google.android.exoplayer2.ui.PlayerControlView-->
+<!--        android:id="@+id/pcv_media"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="120dp"-->
+<!--        app:controller_layout_id="@layout/custom_music_player2"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

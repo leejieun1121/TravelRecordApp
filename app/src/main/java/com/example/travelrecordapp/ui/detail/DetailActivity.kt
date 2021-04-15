@@ -31,5 +31,11 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        viewModel.apply {
+            finishEvent.observe(this@DetailActivity,{
+                finish()
+            })
+        }
+
     }
 }

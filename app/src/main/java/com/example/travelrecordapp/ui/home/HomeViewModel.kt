@@ -26,7 +26,7 @@ class HomeViewModel @ViewModelInject constructor(
         tourRepository.getTourList(RequestTourList("1"),object:TourRepository.GetDataCallback<ResponseTourlist>{
             override fun onSuccess(data: ResponseTourlist?) {
                 if(data!=null){
-                    _tourList.postValue(data.data.tourlist)
+                    _tourList.value =data.data.tourlist
                 }
             }
 

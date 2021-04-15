@@ -9,7 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.travelrecordapp.databinding.ActivityMainBinding
+import com.example.travelrecordapp.ui.detail.MediaActivity
 import com.example.travelrecordapp.ui.detail.MediaListActivity
+import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     //TODO 여기 오디오 바꾸기 
     private val songUrl: String = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
+    private var playbackPosition = 0L
+    private var currentWindow = 0
+    private var playWhenReady = true
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         NavigationUI.setupWithNavController(binding.bottomNav,findNavController(R.id.navi_host))
 
-        initMusicPlayer()
+//        initMusicPlayer()
         binding.pcvMain.findViewById<ImageView>(R.id.btn_audio_finish).setOnClickListener {
             //TODO 플레이어 종료
             binding.pcvMain.hide() //지금은 hide만
@@ -40,9 +46,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity,MediaListActivity::class.java)
             startActivity(intent)
         }
+        binding.pcvMain.setOnClickListener {
+            val intent = Intent(this@MainActivity,MediaActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initMusicPlayer(){
+        binding.pcvMain.showTimeoutMs=0
+
         if(player == null){
             player = SimpleExoPlayer.Builder(this).build()
             binding.pcvMain.player = player
@@ -51,8 +63,38 @@ class MainActivity : AppCompatActivity() {
             val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
                 .createMediaSource(Uri.parse(songUrl))
             player!!.prepare(mediaSource)
+            player!!.seekTo(currentWindow, playbackPosition)
+            player!!.playWhenReady = playWhenReady
         }
-        binding.pcvMain.showTimeoutMs=0
+    }
 
+    private fun releaseMusicPlayer() {
+        player?.let {
+            playbackPosition = it.currentPosition
+            currentWindow = it.currentWindowIndex
+            playWhenReady = it.playWhenReady
+            it.release()
+            player = null
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initMusicPlayer()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        initMusicPlayer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        releaseMusicPlayer()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        releaseMusicPlayer()
     }
 }

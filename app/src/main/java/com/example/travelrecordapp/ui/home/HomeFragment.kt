@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
 
         viewModel.apply {
             position.observe(viewLifecycleOwner, Observer {
-                //TODO 해당 position의 id 넘겨서 SCHEDULE Fragment 로 이동
+                //TODO 해당 position의 id 넘겨서 SCHEDULE Fragment 로 이동(해당 TourData의 schedule로 넘어가게)
                 findNavController().navigate(R.id.action_home_to_schedule)
             })
         }
@@ -77,9 +77,11 @@ class HomeFragment : Fragment() {
                 when(position){
                     0 -> {
                         //TODO 최신순
+                        //TODO 클라에서 처리할것인지, 정렬을 ymd 어느거 기준으로 해야할까
                     }
                     else -> {
                         //TODO 과거순
+
                     }
                 }
 

@@ -52,6 +52,7 @@
             android:id="@+id/rv_my_schedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            replaceAll="@{viewModel.scheduleList}"
             tools:listitem="@layout/item_my_schedule"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"

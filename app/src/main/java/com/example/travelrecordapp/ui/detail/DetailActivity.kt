@@ -3,6 +3,7 @@ package com.example.travelrecordapp.ui.detail
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.travelrecordapp.R
@@ -19,6 +20,9 @@ class DetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        val intent = intent
+        Log.d("넘겨받은 데이터~!~!",intent.getSerializableExtra("detailTourData").toString())
 
         //TODO 레이아웃 똑같아서 Media Activity 하나로 합침 케이스 나눠서 item 넘겨줘야할듯!
         binding.btnPlayVideo.setOnClickListener {

@@ -4,8 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="MyPlace"
-            type="com.example.travelrecordapp.data.MyPlaceData" />
+            name="DetailTourData"
+            type="com.example.travelrecordapp.data.DetailTourData" />
+
+        <variable
+            name="viewModel"
+            type="com.example.travelrecordapp.ui.schedule.ScheduleViewModel" />
+
+        <variable
+            name="itemPosition"
+            type="int" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +24,7 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{MyPlace.name}"
+        android:text="@{DetailTourData.tourName}"
         android:layout_marginLeft="10dp"
         android:textSize="20sp"
         android:textColor="@color/black"
@@ -27,7 +35,7 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{MyPlace.time}"
+        android:text="@{DetailTourData.tourDate}"
         android:textColor="@color/black"
         android:layout_marginLeft="20dp"
         android:textSize="16sp"
@@ -59,7 +67,8 @@
 
         <ImageView
             android:id="@+id/img_place"
-            imageUrl="@{MyPlace.imageUrl}"
+            android:onClick="@{()->viewModel.getPosition(itemPosition)}"
+            imageUrl="@{DetailTourData.tourImage}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"

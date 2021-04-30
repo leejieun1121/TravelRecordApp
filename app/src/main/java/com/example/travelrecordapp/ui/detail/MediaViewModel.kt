@@ -1,5 +1,6 @@
 package com.example.travelrecordapp.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,9 +24,5 @@ class MediaViewModel : ViewModel() {
 
     fun finishActivity(){
         _finishEvent.value = Event(Unit)
-    }
-
-    fun getPosition(position:Int){
-        _position.value = position
     }
 }

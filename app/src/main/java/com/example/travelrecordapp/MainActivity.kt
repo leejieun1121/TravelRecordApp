@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var player: SimpleExoPlayer? = null
     //TODO 여기 오디오 바꾸기 
-    private val songUrl: String = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    private val songUrl: String = ""
 
     private var playbackPosition = 0L
     private var currentWindow = 0
@@ -78,23 +79,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        initMusicPlayer()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        initMusicPlayer()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        releaseMusicPlayer()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        releaseMusicPlayer()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        initMusicPlayer()
+//    }
+//
+//    override fun onRestart() {
+//        super.onRestart()
+//        initMusicPlayer()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        releaseMusicPlayer()
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        releaseMusicPlayer()
+//    }
 }

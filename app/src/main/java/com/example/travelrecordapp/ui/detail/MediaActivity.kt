@@ -1,5 +1,6 @@
 package com.example.travelrecordapp.ui.detail
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.example.travelrecordapp.databinding.ActivityMediaBinding
 import com.example.travelrecordapp.databinding.ItemMyPlaceBinding
 import com.example.travelrecordapp.ui.home.HomeViewModel
 import com.example.travelrecordapp.util.BaseRecyclerAdapter
+import com.example.travelrecordapp.util.MusicService
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -63,8 +65,16 @@ class MediaActivity : AppCompatActivity(),onClickViewPager {
             override fun onPageScrollStateChanged(state: Int) {
             }
         })
+    }
 
+    private fun callService(){
+        //서비스 시작
+        val intent = Intent(this,MusicService::class.java)
+        startService(intent)
 
+        //서비스 종료
+//        val intent = Intent(this,MusicService::class.java)
+//        stopService(intent)
     }
 
     private fun initMusicPlayer(){
@@ -77,9 +87,9 @@ class MediaActivity : AppCompatActivity(),onClickViewPager {
                 DefaultHttpDataSourceFactory(getString(R.string.app_name))
             val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
                 .createMediaSource(Uri.parse(songUrl))
-            player!!.prepare(mediaSource)
-            player!!.seekTo(currentWindow, playbackPosition)
-            player!!.playWhenReady = playWhenReady
+            player!!.prepare(mediaSource) //플레이어에게 재생애 필요한 모든 리소스를 획득하도록 지시
+            player!!.seekTo(currentWindow, playbackPosition) //플레이어에게 특정 창 내에서 특정위치를 찾도록 지시
+            player!!.playWhenReady = playWhenReady //재생을 위한 모든 리소스를 획득하자마자 재생을 시작할지 여부를 플레이어에게 알려줌 true -> 자동재생
         }
     }
 
@@ -96,7 +106,7 @@ class MediaActivity : AppCompatActivity(),onClickViewPager {
     private fun resetMusicPlayer() {
         player?.let {
             playbackPosition = 0
-            currentWindow = it.currentWindowIndex
+            currentWindow = 0
             playWhenReady = it.playWhenReady
             it.release()
             player = null

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.travelrecordapp.ui.detail.MediaViewModel" />
+            type="com.example.travelrecordapp.ui.media.MediaViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="비디오 보기"
+            setMediaTitle="@{viewModel.audioList}"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -84,13 +84,13 @@
         />
 
 
-    <!--    <com.google.android.exoplayer2.ui.PlayerControlView-->
-<!--        android:id="@+id/pcv_media"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="120dp"-->
-<!--        app:controller_layout_id="@layout/custom_music_player2"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+        <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/pcv_media2"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:controller_layout_id="@layout/custom_music_player2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

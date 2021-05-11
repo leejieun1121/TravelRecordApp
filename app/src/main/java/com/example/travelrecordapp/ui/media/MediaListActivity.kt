@@ -1,4 +1,4 @@
-package com.example.travelrecordapp.ui.detail
+package com.example.travelrecordapp.ui.media
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

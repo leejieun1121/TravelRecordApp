@@ -7,6 +7,7 @@ data class DetailTourData (
         val tourImage: String,
         val tourDate : String,
         val audioList : List<AudioInfo>,
+        val videoList : List<VideoInfo>,
         val lat :Double,
         val lng : Double,
         val phoneNum:String,
@@ -19,4 +20,11 @@ data class AudioInfo(
     val audioExplain:String,
     val image:String,
     val songUrl:String
+):Serializable
+
+data class VideoInfo(
+    val title:String,
+    val videoExplain:String,
+    val image:String,
+    val videoUrl:String
 ):Serializable

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.travelrecordapp.data.AudioInfo
 import com.example.travelrecordapp.data.TourData
 import com.example.travelrecordapp.util.BaseRecyclerAdapter
 
@@ -37,5 +38,20 @@ fun RecyclerView.replaceAll(list: List<Any>?) {
     (this.adapter as? BaseRecyclerAdapter<Any, *,*>)?.run {
         replaceAll(list)
         notifyDataSetChanged()
+    }
+}
+
+@BindingAdapter("lat","lng")
+fun setAddress(textView: TextView, lat:Double, lng:Double){
+    textView.text= lat.toString() + ","+lng.toString()
+}
+
+@BindingAdapter("setMediaTitle")
+fun setMediaTitle(textView: TextView,audioList:List<AudioInfo>?){
+    if(audioList.isNullOrEmpty()){
+        textView.text = "비디오 보기"
+    }else{
+        textView.text = "오디오 듣기"
+
     }
 }

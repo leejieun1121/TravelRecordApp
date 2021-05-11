@@ -4,15 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.travelrecordapp.databinding.ActivityMainBinding
-import com.example.travelrecordapp.ui.detail.MediaActivity
-import com.example.travelrecordapp.ui.detail.MediaListActivity
-import com.google.android.exoplayer2.MediaItem
+import com.example.travelrecordapp.ui.media.MediaActivity
+import com.example.travelrecordapp.ui.media.MediaListActivity
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -44,11 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.pcvMain.findViewById<ImageView>(R.id.btn_audio_list).setOnClickListener {
             //FIXME 넘어갈때 player 객체 같이 넘겨줘야할듯
-            val intent = Intent(this@MainActivity,MediaListActivity::class.java)
+            val intent = Intent(this@MainActivity, MediaListActivity::class.java)
             startActivity(intent)
         }
         binding.pcvMain.setOnClickListener {
-            val intent = Intent(this@MainActivity,MediaActivity::class.java)
+            val intent = Intent(this@MainActivity, MediaActivity::class.java)
             startActivity(intent)
         }
     }

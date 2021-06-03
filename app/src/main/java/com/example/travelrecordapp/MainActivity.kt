@@ -54,17 +54,17 @@ class MainActivity : AppCompatActivity() {
     private fun initMusicPlayer(){
         binding.pcvMain.showTimeoutMs=0
 
-        if(player == null){
-            player = SimpleExoPlayer.Builder(this).build()
-            binding.pcvMain.player = player
-            val defaultHttpDataSourceFactory =
-                DefaultHttpDataSourceFactory(getString(R.string.app_name))
-            val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
-                .createMediaSource(Uri.parse(songUrl))
-            player!!.prepare(mediaSource)
-            player!!.seekTo(currentWindow, playbackPosition)
-            player!!.playWhenReady = playWhenReady
-        }
+//        if(player == null){
+//            player = SimpleExoPlayer.Builder(this).build()
+//            binding.pcvMain.player = player
+//            val defaultHttpDataSourceFactory =
+//                DefaultHttpDataSourceFactory(getString(R.string.app_name))
+//            val mediaSource = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
+//                .createMediaSource(Uri.parse(songUrl))
+//            player!!.prepare(mediaSource)
+//            player!!.seekTo(currentWindow, playbackPosition)
+//            player!!.playWhenReady = playWhenReady
+//        }
     }
 
     private fun releaseMusicPlayer() {
@@ -77,16 +77,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        initMusicPlayer()
-//    }
-//
-//    override fun onRestart() {
-//        super.onRestart()
-//        initMusicPlayer()
-//    }
-//
+    override fun onResume() {
+        super.onResume()
+        initMusicPlayer()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        initMusicPlayer()
+    }
+
 //    override fun onPause() {
 //        super.onPause()
 //        releaseMusicPlayer()

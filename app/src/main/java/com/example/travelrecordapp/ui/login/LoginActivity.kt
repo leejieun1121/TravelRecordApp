@@ -28,13 +28,13 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         viewModel.apply {
-            finishEvent.observe(this@LoginActivity){
+            finishEvent.observe(this@LoginActivity,EventObserver{
                 finish()
-            }
-            findPwActivityEvent.observe(this@LoginActivity){
+            })
+            findPwActivityEvent.observe(this@LoginActivity,EventObserver{
                 val intent = Intent(this@LoginActivity, FindIdPwActivity::class.java)
                 startActivity(intent)
-            }
+            })
 
             userData.observe(this@LoginActivity){
                 //TODO it.token  넘기기

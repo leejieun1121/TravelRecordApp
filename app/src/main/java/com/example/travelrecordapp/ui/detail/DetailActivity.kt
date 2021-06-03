@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.data.AudioInfo
 import com.example.travelrecordapp.data.DetailTourData
+import com.example.travelrecordapp.data.EventObserver
 import com.example.travelrecordapp.databinding.ActivityDetailBinding
 import com.example.travelrecordapp.databinding.ActivityRegisterBinding
 import com.example.travelrecordapp.ui.media.MediaActivity
@@ -42,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         viewModel.apply {
-            finishEvent.observe(this@DetailActivity,{
+            finishEvent.observe(this@DetailActivity, EventObserver{
                 finish()
             })
         }

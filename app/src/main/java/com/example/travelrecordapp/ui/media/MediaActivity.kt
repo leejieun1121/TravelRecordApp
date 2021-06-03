@@ -11,11 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.data.AudioInfo
+import com.example.travelrecordapp.data.EventObserver
 import com.example.travelrecordapp.data.VideoInfo
 import com.example.travelrecordapp.databinding.ActivityMediaBinding
 import com.example.travelrecordapp.util.MusicService
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 
 class MediaActivity : AppCompatActivity(), onClickViewPager {
     private lateinit var binding: ActivityMediaBinding
@@ -47,7 +50,7 @@ class MediaActivity : AppCompatActivity(), onClickViewPager {
         //videoList가 null -> audio
 
         viewModel.apply {
-            finishEvent.observe(this@MediaActivity, {
+            finishEvent.observe(this@MediaActivity, EventObserver{
                 finish()
             })
         }
@@ -59,7 +62,7 @@ class MediaActivity : AppCompatActivity(), onClickViewPager {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                Log.d("indexCheck00","??")
+                Log.d("indexCheck00", "??")
 
                 prevnextMusicPlayer(position)
 
@@ -71,13 +74,38 @@ class MediaActivity : AppCompatActivity(), onClickViewPager {
             override fun onPageScrollStateChanged(state: Int) {
             }
         })
+
+        player!!.addListener(object : Player.EventListener {
+            //재생이 다른 미디어 항목으로 전환 될 때 감지
+            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                super.onMediaItemTransition(mediaItem, reason)
+            }
+
+            //
+            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                when (playbackState) {
+                    Player.STATE_IDLE -> {
+                    }
+                    Player.STATE_BUFFERING -> {
+                    }
+                    Player.STATE_READY -> {
+                    }
+                    Player.STATE_ENDED -> {
+                    }
+                    else -> {
+                    }
+                }
+            }
+        })
     }
 
     private fun initMusicPlayer(){
         binding.pcvMedia.showTimeoutMs=0
         binding.pcvMedia2.showTimeoutMs=0
         if(player == null){
-            player = SimpleExoPlayer.Builder(this).build()
+            val trackSelector = DefaultTrackSelector(this)
+            trackSelector.setParameters(trackSelector.buildUponParameters().setMaxAudioBitrate(1000))
+            player = SimpleExoPlayer.Builder(this).apply { setTrackSelector(trackSelector) }.build()
             binding.pcvMedia.player = player
             binding.pcvMedia2.player = player
 
@@ -112,11 +140,11 @@ class MediaActivity : AppCompatActivity(), onClickViewPager {
         }
     }
 
-    private fun prevnextMusicPlayer(position:Int){
+    private fun prevnextMusicPlayer(position: Int){
         initMusicPlayer()
         player!!.seekToDefaultPosition(position)
         player!!.prepare()
-        Log.d("indexCheck",position.toString())
+        Log.d("indexCheck", position.toString())
 
     }
 

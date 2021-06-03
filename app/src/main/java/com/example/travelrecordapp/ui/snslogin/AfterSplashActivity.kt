@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.travelrecordapp.MainActivity
 import com.example.travelrecordapp.R
+import com.example.travelrecordapp.data.EventObserver
 import com.example.travelrecordapp.databinding.ActivityAfterSplashBinding
 import com.example.travelrecordapp.ui.login.LoginActivity
 import com.example.travelrecordapp.ui.register.RegisterActivity
@@ -70,15 +71,15 @@ class AfterSplashActivity : AppCompatActivity() {
 
         viewModel.apply {
             //로그인 버튼
-            loginActivityEvent.observe(this@AfterSplashActivity){
+            loginActivityEvent.observe(this@AfterSplashActivity, EventObserver{
                 val intent = Intent(this@AfterSplashActivity, LoginActivity::class.java)
                 startActivity(intent)
-            }
+            })
             //회원가입 버튼
-            registerActivityEvent.observe(this@AfterSplashActivity){
+            registerActivityEvent.observe(this@AfterSplashActivity,EventObserver{
                 val intent = Intent(this@AfterSplashActivity, RegisterActivity::class.java)
                 startActivity(intent)
-            }
+            })
 
             kakaoSession.observe(this@AfterSplashActivity){ kakaoSession ->
                 kakaoSession.checkAndImplicitOpen()

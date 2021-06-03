@@ -13,6 +13,7 @@ class DetailViewModel(detailData: DetailTourData) :ViewModel() {
     val audioList = data.audioList
     val videoList = data.videoList
     private val _finishEvent = MutableLiveData<Event<Unit>>()
+
     val finishEvent : LiveData<Event<Unit>>
         get() = _finishEvent
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.travelrecordapp.R
+import com.example.travelrecordapp.data.EventObserver
 import com.example.travelrecordapp.databinding.ActivityFindIdPwBinding
 
 class FindIdPwActivity : AppCompatActivity() {
@@ -18,9 +19,9 @@ class FindIdPwActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         viewModel.apply {
-            finishEvent.observe(this@FindIdPwActivity){
+            finishEvent.observe(this@FindIdPwActivity, EventObserver{
                 finish()
-            }
+            })
         }
 
     }

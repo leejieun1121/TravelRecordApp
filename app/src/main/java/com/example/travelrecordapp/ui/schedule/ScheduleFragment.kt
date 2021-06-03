@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.travelrecordapp.BR
 import com.example.travelrecordapp.R
 import com.example.travelrecordapp.data.DetailTourData
+import com.example.travelrecordapp.data.EventObserver
 import com.example.travelrecordapp.data.MyPlaceData
 import com.example.travelrecordapp.data.TourData
 import com.example.travelrecordapp.databinding.FragmentHomeBinding
@@ -49,7 +50,7 @@ class ScheduleFragment : Fragment() {
         ){ }
         viewModel.apply {
 
-            finishEvent.observe(viewLifecycleOwner, {
+            finishEvent.observe(viewLifecycleOwner, EventObserver{
                 findNavController().navigate(R.id.action_schedule_to_home)
             })
             position.observe(viewLifecycleOwner,  {

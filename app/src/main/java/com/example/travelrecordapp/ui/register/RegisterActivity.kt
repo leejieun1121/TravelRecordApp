@@ -8,10 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.travelrecordapp.R
-import com.example.travelrecordapp.data.NetworkResponse
-import com.example.travelrecordapp.data.RequestRegister
-import com.example.travelrecordapp.data.ResponseRegister
-import com.example.travelrecordapp.data.RetrofitService
+import com.example.travelrecordapp.data.*
 import com.example.travelrecordapp.databinding.ActivityRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -33,9 +30,9 @@ class RegisterActivity : AppCompatActivity() {
 
         //TODO DataSource로 넘기기
         viewModel.apply {
-            finishEvent.observe(this@RegisterActivity){
+            finishEvent.observe(this@RegisterActivity, EventObserver{
                 finish()
-            }
+            })
             toastMessage.observe(this@RegisterActivity){
                 Toast.makeText(this@RegisterActivity,it,Toast.LENGTH_SHORT).show()
             }

@@ -46,6 +46,7 @@ class MapFragment : Fragment(),OnMapReadyCallback{
     private var lat =0.0
     private var lng =0.0
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -102,16 +103,11 @@ class MapFragment : Fragment(),OnMapReadyCallback{
 
             } else {
                 val snackBar = Snackbar.make(layout, "권한이 없습니다. 해당 권한을 얻기 위해 설정으로 이동합니다.", Snackbar.LENGTH_INDEFINITE)
-                snackBar.setAction("확인") {
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    val uri = Uri.fromParts("package", "com.example.travelrecordapp.ui.map", null)
-                    intent.data = uri
-                    startActivity(intent)
-                }
+                snackBar.setAction("확인",SettingClickListener())
                 snackBar.show()
             }
         }
+
 
     private fun getCurrentLocation(){
         mLocationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager

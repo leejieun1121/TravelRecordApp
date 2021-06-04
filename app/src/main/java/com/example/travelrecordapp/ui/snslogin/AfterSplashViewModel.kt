@@ -19,9 +19,11 @@ import com.kakao.auth.Session
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.kakao.util.exception.KakaoException
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class AfterSplashViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AfterSplashViewModel @Inject constructor(
     private val authRepository : AuthRepository
 ) : ViewModel() {
 //    private val AuthLocalDataSource = AuthLocalDataSource()

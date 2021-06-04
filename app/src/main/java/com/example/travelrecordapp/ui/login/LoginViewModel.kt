@@ -12,8 +12,11 @@ import com.example.travelrecordapp.data.User
 import com.example.travelrecordapp.data.repository.AuthRepository
 import com.example.travelrecordapp.data.source.local.AuthLocalDataSource
 import com.example.travelrecordapp.data.source.remote.AuthRemoteDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val authRepository : AuthRepository
 )  : ViewModel() {
 

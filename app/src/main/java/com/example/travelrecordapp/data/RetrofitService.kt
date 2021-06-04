@@ -8,8 +8,6 @@ object RetrofitService {
     private val baseURL = "https://azanghs.cafe24.com/itstudy/"
 
     var retrofit = Retrofit.Builder().baseUrl(baseURL)
-            // 만든 NetworkResponse 이거 사용하려고
-        .addCallAdapterFactory(NetworkResponseAdapterFactory())
             //response String으로 받아오려고
         .addConverterFactory(ScalarsConverterFactory.create())
             //response Json 으로

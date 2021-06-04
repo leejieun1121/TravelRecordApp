@@ -9,8 +9,11 @@ import com.example.travelrecordapp.data.RequestTourList
 import com.example.travelrecordapp.data.ResponseTourlist
 import com.example.travelrecordapp.data.TourData
 import com.example.travelrecordapp.data.repository.TourRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
         private val tourRepository : TourRepository
 ): ViewModel() {
 

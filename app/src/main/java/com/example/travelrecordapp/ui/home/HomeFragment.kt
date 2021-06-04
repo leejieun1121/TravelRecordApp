@@ -41,10 +41,11 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        viewModel.getTourList()
+
         setSpinner()
         setRecyclerView()
 
-        viewModel.getTourList()
 
         binding.rvMyPlace.adapter = object:BaseRecyclerAdapter<TourData, ItemMyPlaceBinding, HomeViewModel>(
                 layoutResId = R.layout.item_my_place,
@@ -53,7 +54,7 @@ class HomeFragment : Fragment() {
         ){ }
 
         viewModel.apply {
-            position.observe(viewLifecycleOwner, Observer {
+            position.observe(viewLifecycleOwner,  {
                 //TODO 해당 position의 id 넘겨서 SCHEDULE Fragment 로 이동(해당 TourData의 schedule로 넘어가게)
                 findNavController().navigate(R.id.action_home_to_schedule)
             })

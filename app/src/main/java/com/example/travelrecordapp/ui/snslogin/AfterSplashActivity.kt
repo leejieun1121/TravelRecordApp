@@ -64,6 +64,7 @@ class AfterSplashActivity : AppCompatActivity() {
 
         //구글 로그인 버튼 클릭
         binding.btnGoogleLogin.setOnClickListener {
+            //구글 로그인 창으로 넘어감
             val signInIntent = googleSignInClient.signInIntent
             //TODO deprecated 되었음 고치기
             startActivityForResult(signInIntent, RC_SIGN_IN)

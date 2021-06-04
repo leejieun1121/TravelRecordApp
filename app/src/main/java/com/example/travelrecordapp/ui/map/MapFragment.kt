@@ -65,9 +65,9 @@ class MapFragment : Fragment(),OnMapReadyCallback{
         mMap = googleMap
         layout = binding.layout
         //맨처음 구글 지도 load 할때 현재 위치 찾는 시간이 좀 걸리기 때문에 설정을 안해주면 아프리카에 있음 ㅎ
-        permissionCheck()
         setDefaultLocation()
         getCurrentLocation()
+        permissionCheck() //mLocationManager 초기화 때문에 나중에 호출
     }
 
     private fun permissionCheck(){

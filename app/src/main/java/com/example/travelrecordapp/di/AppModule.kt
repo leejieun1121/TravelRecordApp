@@ -1,8 +1,6 @@
 package com.example.travelrecordapp.di
 
-import com.example.travelrecordapp.data.NetworkResponseAdapterFactory
 import com.example.travelrecordapp.data.RequestInterface
-import com.example.travelrecordapp.data.RetrofitService
 import com.example.travelrecordapp.data.repository.AuthRepository
 import com.example.travelrecordapp.data.repository.TourRepository
 import com.example.travelrecordapp.data.source.remote.AuthRemoteDataSource
@@ -28,8 +26,6 @@ object AppModule {
     @Provides
     fun provideRetrofitService(): RequestInterface = Retrofit.Builder()
         .baseUrl(baseURL)
-        // 만든 NetworkResponse 이거 사용하려고
-        .addCallAdapterFactory(NetworkResponseAdapterFactory())
         //response String으로 받아오려고
         .addConverterFactory(ScalarsConverterFactory.create())
         //response Json 으로
